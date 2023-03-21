@@ -1,0 +1,10 @@
+
+Starwar/.vsconfig
+Starwar/.vs/
+Starwar/Starwar.sln
+Starwar/Library/
+Starwar/Logs/
+Starwar/Temp/
+Starwar/UserSettings/
+Starwar/obj/
+Starwar/Assembly-CSharp.csproj
