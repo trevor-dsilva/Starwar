@@ -46,12 +46,12 @@ public class Player_Control : MonoBehaviour
         }
         if (Input.GetButton("Jump"))
         {
-            // machineGun.Fire();
+            machineGun.Fire();
         }
         if (Input.GetButtonDown("Jump"))
-        {
+        {/*
             missileLauncherManager.LockOn();
-            missileLauncherManager.Fire();
+            missileLauncherManager.Fire();*/
         }
     }
 }
