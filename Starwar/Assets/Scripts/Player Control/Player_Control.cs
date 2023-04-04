@@ -44,14 +44,18 @@ public class Player_Control : MonoBehaviour
         {
             _rigidbody.AddRelativeTorque(Vector3.forward * Input.GetAxis("TorqueZ") * TorqueZ_Force, ForceMode.Force);
         }
-        if (Input.GetButton("Jump"))
+
+        if (Input.GetButton("Fire1"))
         {
+            Debug.Log("Fire bullet");
             machineGun.Fire();
         }
-        if (Input.GetButtonDown("Jump"))
-        {/*
+
+        if (Input.GetButtonDown("Fire2"))
+        {
+            Debug.Log("Fire Missile");
             missileLauncherManager.LockOn();
-            missileLauncherManager.Fire();*/
+            missileLauncherManager.Fire();
         }
     }
 }
