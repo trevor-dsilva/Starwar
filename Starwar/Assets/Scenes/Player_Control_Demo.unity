@@ -242,6 +242,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 683c21159caa3304590e2f5a9c6b898c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aircraft: {fileID: 1997493515}
+  healthText: {fileID: 1306022897}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

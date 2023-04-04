@@ -6,20 +6,12 @@ using UnityEngine.UI;
 
 public class PlayerUI: MonoBehaviour
 {
-    GameObject aircraft;
+    
+    public GameObject aircraft;
 
-    GameObject healthText;
+    public GameObject healthText;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        aircraft = GameObject.Find("Aircraft");
-
-        healthText = GameObject.Find("Health");
-
-    }
-
-
+    
     // Update is called once per frame
     void Update()
     {

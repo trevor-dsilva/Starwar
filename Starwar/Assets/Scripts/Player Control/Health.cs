@@ -3,7 +3,7 @@ public class Health : MonoBehaviour
 {
     public float MaxHealth;
 
-    private static float currentHealth;
+    private float currentHealth;
     private bool isAlive;
 
     public float CurrentHealth
