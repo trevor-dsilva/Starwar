@@ -3,7 +3,7 @@ public class Health : MonoBehaviour
 {
     public float MaxHealth;
 
-    private float currentHealth;
+    private static float currentHealth;
     private bool isAlive;
 
     public float CurrentHealth
@@ -21,6 +21,7 @@ public class Health : MonoBehaviour
             else { currentHealth = value; }
         }
     }
+
 
     private void Start()
     {
