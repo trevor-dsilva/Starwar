@@ -73,4 +73,10 @@ public class SteeringAgent : MonoBehaviour
         SteeringMovements.Clear();
     }
 
+    public void Retreat()
+    {
+        SteeringMovements.Clear();
+        //SteeringMovements.Add(retreat);
+    }
+
 }

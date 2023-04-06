@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 public class Bullet : MonoBehaviour
 {
-    public float Force, Lifetime, ColliderDelay;
+    public float Force, Lifetime;
     public Vector3 Direction, ParentVelocity;
 
 
-    private float colliderDelayCountDown;
+    //private float colliderDelayCountDown;
     private Rigidbody _rigidbody;
     private bool activated = false;
     private void Awake()
@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour
     {
         //_rigidbody.velocity = ParentVelocity;
         _rigidbody.AddRelativeForce(Direction * Force, ForceMode.Impulse);
-        colliderDelayCountDown = ColliderDelay;
+        //colliderDelayCountDown = ColliderDelay;
         Destroy(gameObject, Lifetime);
     }
     private void OnCollisionEnter(Collision collision)
@@ -25,6 +25,7 @@ public class Bullet : MonoBehaviour
     }
     private void Update()
     {
+        /*
         if (colliderDelayCountDown > 0)
         {
             colliderDelayCountDown -= Time.deltaTime;
@@ -33,6 +34,6 @@ public class Bullet : MonoBehaviour
         {
             //GetComponent<Collider>().enabled = true;
             activated = true;
-        }
+        }*/
     }
 }

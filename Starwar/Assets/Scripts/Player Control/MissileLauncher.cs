@@ -2,7 +2,7 @@
 
 public class MissileLauncher : MonoBehaviour
 {
-    [SerializeField] float InitialLauchForce;
+    public Vector3 velocity;
     [SerializeField]
     private GameObject MissilePrefab;
     private bool isLoaded = true;
@@ -24,7 +24,7 @@ public class MissileLauncher : MonoBehaviour
         {
             GameObject missleObject = Instantiate(MissilePrefab, transform.position - 2 * transform.up, transform.rotation);
             Missile missle = missleObject.GetComponent<Missile>();
-            missle.InitialLauchForce = InitialLauchForce;
+            missle.InitialVelocity = velocity;
             missle.Target = Target;
             IsLoaded = false;
         }

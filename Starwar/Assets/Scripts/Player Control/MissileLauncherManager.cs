@@ -60,6 +60,7 @@ public class MissileLauncherManager : MonoBehaviour
             if (missileLauncher.IsLoaded)
             {
                 missileLauncher.Target = Target;
+                missileLauncher.velocity = GetComponent<Rigidbody>().velocity;
                 missileLauncher.Launch();
                 return;
             }

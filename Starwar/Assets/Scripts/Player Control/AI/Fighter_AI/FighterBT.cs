@@ -14,19 +14,8 @@ public class FighterBT : BehaviorTree.BehaviorTree
     public State state;
     public float viewRange;
     // Will cast a ray toward enemy ship, ray should be hit obstacles and enemy ship, but not ally ship.
-    public UnityEngine.LayerMask viewMask;
+    public LayerMask viewMask;
     public BehaviorNode _root;
-    private void Start()
-    {
-        _root = SetupTree();
-    }
-    private void Update()
-    {
-        if (_root != null)
-        {
-            _root.Evaluate();
-        }
-    }
     protected override BehaviorNode SetupTree()
     {
         BehaviorNode root =
@@ -72,7 +61,8 @@ public class FighterBT : BehaviorTree.BehaviorTree
                             {
                                 new Sequence(new List<BehaviorNode>()
                                 {
-                                    new IsAssaultTargetNullOrDead(GetComponent<Assault>()),new Message(),
+                                    new IsAssaultTargetNullOrDead(GetComponent<Assault>()),
+                                    //new Message(),
                                     new Selector(new List<BehaviorNode>()
                                     {
                                         new Sequence(new List<BehaviorNode>()
@@ -197,6 +187,39 @@ public class SetStateDead : BehaviorNode
     }
 }
 
+public class IsRetreatState : BehaviorNode
+{
+    public FighterBT tree;
+    public IsRetreatState(FighterBT tree)
+    {
+        this.tree = tree;
+    }
+    public override BehaviorNodeState Evaluate()
+    {
+        if (tree.state == FighterBT.State.Retreat)
+        { return BehaviorNodeState.SUCCESS; }
+        else
+        { return BehaviorNodeState.FAILURE; }
+    }
+}
+
+public class SetRetreatState : BehaviorNode
+{
+    public FighterBT tree;
+    public SteeringAgent agent;
+    public SetRetreatState(FighterBT tree, SteeringAgent steeringAgent)
+    {
+        this.tree = tree;
+        agent = steeringAgent;
+    }
+    public override BehaviorNodeState Evaluate()
+    {
+        tree.state = FighterBT.State.Retreat;
+        agent.Retreat();
+        return BehaviorNodeState.SUCCESS;
+    }
+}
+
 public class AmIHealthy : BehaviorNode
 {
     public Health myHealth;
@@ -303,6 +326,81 @@ public class SpotEnemyInFOV : BehaviorNode
             }
             Debug.DrawRay(self.position, direction * viewRange, Color.red, 1);
         }
+        return BehaviorNodeState.SUCCESS;
+    }
+}
+
+public class IsAssaultTargetNullOrDead : BehaviorNode
+{
+    public Assault assault;
+    public IsAssaultTargetNullOrDead(Assault assault)
+    {
+        this.assault = assault;
+    }
+
+    public override BehaviorNodeState Evaluate()
+    {
+        if (assault.Target == null)
+        {
+            return BehaviorNodeState.SUCCESS;
+        }
+        else
+        {
+            if (!assault.Target.GetComponent<Health>().IsAlive)
+            {
+                return BehaviorNodeState.SUCCESS;
+            }
+            return BehaviorNodeState.FAILURE;
+        }
+    }
+}
+
+public class SetAssaultTarget : BehaviorNode
+{
+    public Assault assault;
+    public Ship.Belong shipBelong;
+    public SetAssaultTarget(Assault assault, Ship.Belong shipBelong)
+    {
+        this.assault = assault;
+        this.shipBelong = shipBelong;
+    }
+
+    public override BehaviorNodeState Evaluate()
+    {
+        Ship targetShip = null;
+        float distance = float.MaxValue;
+        switch (shipBelong)
+        {
+            case Ship.Belong.Red:
+                foreach (Ship ship in Ship.BlueShips)
+                {
+                    if (ship.IsSpotted)
+                    {
+                        float tempDistance = Vector3.Distance(assault.transform.position, ship.transform.position);
+                        if (tempDistance < distance)
+                        {
+                            targetShip = ship;
+                            distance = tempDistance;
+                        }
+                    }
+                }
+                break;
+            case Ship.Belong.Blue:
+                foreach (Ship ship in Ship.RedShips)
+                {
+                    if (ship.IsSpotted)
+                    {
+                        float tempDistance = Vector3.Distance(assault.transform.position, ship.transform.position);
+                        if (tempDistance < distance)
+                        {
+                            targetShip = ship;
+                            distance = tempDistance;
+                        }
+                    }
+                }
+                break;
+        }
+        assault.Target = targetShip.gameObject;
         return BehaviorNodeState.SUCCESS;
     }
 }

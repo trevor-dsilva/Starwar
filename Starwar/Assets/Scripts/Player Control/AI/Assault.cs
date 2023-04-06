@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using BehaviorTree;
 public class Assault : SteeringMovement
 {
     public enum State
@@ -86,7 +85,6 @@ public class Assault : SteeringMovement
         switch (state)
         {
             case State.Tailgate:
-                Debug.Log(lauchMissile.Ready);
                 ret.Add(lookAtTarget.GetSteering(agent));
                 ret.Add(seek.GetSteering(agent));
                 ret.Add(lauchMissile.GetSteering(agent));
@@ -137,79 +135,4 @@ public class Assault : SteeringMovement
         }
     }
 
-}
-
-public class IsAssaultTargetNullOrDead : BehaviorNode
-{
-    public Assault assault;
-    public IsAssaultTargetNullOrDead(Assault assault)
-    {
-        this.assault = assault;
-    }
-
-    public override BehaviorNodeState Evaluate()
-    {
-        if (assault.Target == null)
-        {
-            return BehaviorNodeState.SUCCESS;
-        }
-        else
-        {
-            if (!assault.Target.GetComponent<Health>().IsAlive)
-            {
-                return BehaviorNodeState.SUCCESS;
-            }
-            return BehaviorNodeState.FAILURE;
-        }
-    }
-}
-
-public class SetAssaultTarget : BehaviorNode
-{
-    public Assault assault;
-    public Ship.Belong shipBelong;
-    public SetAssaultTarget(Assault assault, Ship.Belong shipBelong)
-    {
-        this.assault = assault;
-        this.shipBelong = shipBelong;
-    }
-
-    public override BehaviorNodeState Evaluate()
-    {
-        Ship targetShip = null;
-        float distance = float.MaxValue;
-        switch (shipBelong)
-        {
-            case Ship.Belong.Red:
-                foreach (Ship ship in Ship.BlueShips)
-                {
-                    if (ship.IsSpotted)
-                    {
-                        float tempDistance = Vector3.Distance(assault.transform.position, ship.transform.position);
-                        if (tempDistance < distance)
-                        {
-                            targetShip = ship;
-                            distance = tempDistance;
-                        }
-                    }
-                }
-                break;
-            case Ship.Belong.Blue:
-                foreach (Ship ship in Ship.RedShips)
-                {
-                    if (ship.IsSpotted)
-                    {
-                        float tempDistance = Vector3.Distance(assault.transform.position, ship.transform.position);
-                        if (tempDistance < distance)
-                        {
-                            targetShip = ship;
-                            distance = tempDistance;
-                        }
-                    }
-                }
-                break;
-        }
-        assault.Target = targetShip.gameObject;
-        return BehaviorNodeState.SUCCESS;
-    }
 }

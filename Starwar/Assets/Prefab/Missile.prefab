@@ -134,7 +134,7 @@ MonoBehaviour:
   DamageRadius: 0
   DamageAmount: 0
   ExplotionPrefeb: {fileID: 1647573212144765128, guid: cb5b549bd0dc2f546a06f9602ec9226d, type: 3}
-  InitialLauchForce: 0
+  InitialVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &297334768914900331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,10 +152,10 @@ MonoBehaviour:
   - {fileID: 6626460254512476753}
   assault: {fileID: 0}
   patrol: {fileID: 0}
-  Forward_Force: 6
+  Forward_Force: 10
   TorqueX_Force: 5
   TorqueY_Force: 5
-  TorqueZ_Force: 0.1
+  TorqueZ_Force: 5
 --- !u!114 &8134042210275865970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,9 +184,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 0}
-  Kp: {x: 0.8, y: 0.8, z: 0.8}
-  Ki: {x: 0.25, y: 0.25, z: 0.25}
-  Kd: {x: 1.5, y: 1.5, z: 1.5}
+  Kp: {x: 1, y: 1, z: 1}
+  Ki: {x: 0.1, y: 0.1, z: 0.1}
+  Kd: {x: 0.1, y: 0.1, z: 0.1}
   PreviousError: {x: 0, y: 0, z: 0}
 --- !u!1 &6404493939212536208
 GameObject:

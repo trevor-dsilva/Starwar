@@ -13,6 +13,7 @@ public class Ship : MonoBehaviour
     // Then it goes unspotted.
     public float SpotTime = 3.0f;
     public Belong ShipBelong;
+    public bool IsCargoShip;
 
     private float spotTimeCountDown = 0;
     private void Start()

@@ -154,8 +154,8 @@ MonoBehaviour:
   MachineGunFireAngle: 20
   LeadFactor: 20
   MissileLaunchAngle: 10
-  MaxTailgateDistance: 130
-  MaxDogFightDistance: 70
+  MaxTailgateDistance: 150
+  MaxDogFightDistance: 100
   MinDogFightDistance: 25
   state: 0
 --- !u!114 &6821495272990909341

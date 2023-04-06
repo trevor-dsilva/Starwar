@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 9092395592767354766}
   - component: {fileID: 1886156459945389163}
   - component: {fileID: 171758259017831011}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,7 +131,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Force: 3
   Lifetime: 3
-  ColliderDelay: 0
   Direction: {x: 0, y: 0, z: 0}
   ParentVelocity: {x: 0, y: 0, z: 0}
 --- !u!198 &1886156459945389163

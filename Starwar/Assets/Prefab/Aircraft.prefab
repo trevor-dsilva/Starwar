@@ -5015,10 +5015,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxAngle: 0.02
-  Force: 5
+  Force: 3
   Interval: 0.1
   BulletLifetime: 5
-  ColliderDelay: 0.5
   BulletPrefab: {fileID: 3823042094287634631, guid: 1e20b73de1f4cd94c9a47125d5ad4e64, type: 3}
   ParentRigidBody: {fileID: 4942797449781423102}
 --- !u!1 &2967701724873864483
@@ -5299,7 +5298,6 @@ MonoBehaviour:
   - {fileID: 7709275872142890104}
   - {fileID: 5273024840164432133}
   - {fileID: 8072508653964492037}
-  ParentObject: {fileID: 4942797449781423101}
   MaxLockOnAngle: 15
   MaxLockOnDistance: 100
   EnemyMask:
