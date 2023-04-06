@@ -3,13 +3,14 @@
 public class Camera_Control : MonoBehaviour
 {
     [SerializeField] private float MaxRotation, Scale;
-    [SerializeField] private Rigidbody ParentBody;
+    private Rigidbody ParentBody;
     [SerializeField] private Transform ParentTransform;
     private Vector3 previousAngularVelocity;
 
     private void Start()
     {
         previousAngularVelocity = Vector3.zero;
+        ParentBody = ParentTransform.GetComponent<Rigidbody>();
     }
 
     private void FixedUpdate()
@@ -18,12 +19,5 @@ public class Camera_Control : MonoBehaviour
         transform.position = Scale * transform.position + (1 - Scale) * newCameraPosition;
 
         transform.LookAt(ParentTransform.position + ParentTransform.forward * 5.0f, ParentTransform.up);
-        //Debug.Log(ParentBody.angularVelocity);
-        //Vector3 angularVelocityDifference = ParentBody.angularVelocity - previousAngularVelocity;
-        //transform.Rotate(ParentTransform.right, angularVelocityDifference.x * Scale);
-        //transform.Rotate(ParentTransform.up, angularVelocityDifference.y * Scale);
-        //transform.Rotate(ParentTransform.forward, angularVelocityDifference.z * Scale);
-
-        //previousAngularVelocity = ParentBody.angularVelocity;
     }
 }

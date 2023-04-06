@@ -13,31 +13,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4942797449781423098, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.18
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4942797449781423098, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.377
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4942797449781423098, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -64.88
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4942797449781423098, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.962968
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4942797449781423098, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4942797449781423098, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.269616
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4942797449781423098, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4942797449781423098, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -45,7 +45,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4942797449781423098, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -31.283
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4942797449781423098, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -59,13 +59,17 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 5031685119913294486, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
-      propertyPath: BulletLifetime
-      value: 3
+    - target: {fileID: 5267818423541402850, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
+      propertyPath: ShipBelong
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7829057209599095777, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
       propertyPath: EnemyMask.m_Bits
       value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 7829057209599095777, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
+      propertyPath: MaxLockOnDistance
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 8175247032205465935, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
       propertyPath: EnemyMask.m_Bits
@@ -90,34 +94,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4942797449781423101, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
   m_PrefabInstance: {fileID: 3280275005396424447}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1040252147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7574413194778819842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c8b9979a884aae49bcca605fbd81f4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Target: {fileID: 0}
-  MaximumAngle: 0
---- !u!114 &960374780676046419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7574413194778819842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbfeddd22d348db4dae0df94bbdd5a34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  MinimumAngle: 90
 --- !u!114 &1396029868431263928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,15 +106,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f13721aa72b17244a0694f833442bde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SteeringMovements:
-  - {fileID: 4235352681750986976}
-  - {fileID: 960374780676046419}
+  SteeringMovements: []
+  assault: {fileID: 0}
+  patrol: {fileID: 0}
   Forward_Force: 3
-  TorqueX_Force: 0.2
-  TorqueY_Force: 0.1
-  TorqueZ_Force: 0.01
-  LocalAngularVelocity: {x: 0, y: 0, z: 0}
---- !u!114 &2445317716126148882
+  TorqueX_Force: 0.8
+  TorqueY_Force: 0.8
+  TorqueZ_Force: 0.1
+--- !u!114 &5275520568009412707
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,15 +122,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 7574413194778819842}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ce82feaa73d0b641822c5dcdd8b48a3, type: 3}
+  m_Script: {fileID: 11500000, guid: 38dd12a7a969fff4fa623bc26bf65c7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 0}
-  Kp: {x: 30, y: 30, z: 30}
-  Ki: {x: 0.1, y: 0.1, z: 0.1}
-  Kd: {x: 0.2, y: 0.2, z: 0.2}
-  PreviousError: {x: 0, y: 0, z: 0}
---- !u!114 &3712162348283784580
+  state: 0
+  viewRange: 500
+  viewMask:
+    serializedVersion: 2
+    m_Bits: 72
+--- !u!114 &5887325200747016967
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,36 +139,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 7574413194778819842}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ea5d56fc60a0c444a2e49056fa742d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  targetBody: {fileID: 0}
-  Kp: {x: 30, y: 30, z: 30}
-  Ki: {x: 0.1, y: 0.1, z: 0.1}
-  Kd: {x: 0.2, y: 0.2, z: 0.2}
-  PreviousError: {x: 0, y: 0, z: 0}
-  LeadFactor: 3
-  FireAngle: 20
-  machineGun: {fileID: 7517002876077730921}
---- !u!114 &4235352681750986976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7574413194778819842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c081fb4d9d6cb4e449b97dffb202e34c, type: 3}
+  m_Script: {fileID: 11500000, guid: 85c715693f415334d85d2a817788627a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  Kp: {x: 30, y: 30, z: 30}
-  Ki: {x: 0.1, y: 0.1, z: 0.1}
-  Kd: {x: 0.2, y: 0.2, z: 0.2}
+  missileReady: 0
+  machineGun: {fileID: 7517002876077730921}
+  Kp: {x: 0.9, y: 0.9, z: 0.9}
+  Ki: {x: 0.25, y: 0.25, z: 0.25}
+  Kd: {x: 1.5, y: 1.5, z: 1.5}
   PreviousError: {x: 0, y: 0, z: 0}
---- !u!114 &6881588114952547225
+  SeekAngle: 30
+  FleeAngle: 180
+  MachineGunFireAngle: 20
+  LeadFactor: 20
+  MissileLaunchAngle: 10
+  MaxTailgateDistance: 130
+  MaxDogFightDistance: 70
+  MinDogFightDistance: 25
+  state: 0
+--- !u!114 &6821495272990909341
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -202,9 +167,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 7574413194778819842}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 859eb50667669494c8cd915fed439c89, type: 3}
+  m_Script: {fileID: 11500000, guid: e3f51d49823bb1943a9ffc36861c36ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 0}
-  Angle: 20
-  machineGun: {fileID: 7517002876077730921}
+  Waypoints: []
+  target: {fileID: 0}
+  Kp: {x: 400, y: 400, z: 400}
+  Ki: {x: 40, y: 40, z: 40}
+  Kd: {x: 60, y: 60, z: 60}
+  PreviousError: {x: 0, y: 0, z: 0}
+  SeekAngle: 30
+  StopDistance: 10
+  SpeedLimit: 3

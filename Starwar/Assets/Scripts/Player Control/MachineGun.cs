@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 public class MachineGun : MonoBehaviour
 {
-    [SerializeField] float MaxAngle, Force, Interval, BulletLifetime;
+    [SerializeField] float MaxAngle, Force, Interval, BulletLifetime, ColliderDelay;
     [SerializeField] private GameObject BulletPrefab;
     [SerializeField] private Rigidbody ParentRigidBody;
 
@@ -24,7 +24,6 @@ public class MachineGun : MonoBehaviour
         Bullet bullet = bulletObject.GetComponent<Bullet>();
         bullet.Force = Force;
         bullet.Direction = direction;
-        bullet.ParentVelocity = ParentRigidBody.velocity;
         bullet.Lifetime = BulletLifetime;
 
         lastFire = Time.fixedTime;

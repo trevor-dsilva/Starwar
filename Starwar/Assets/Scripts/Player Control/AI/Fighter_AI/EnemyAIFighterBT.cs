@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BehaviorTree;
 
-public class EnemyAIFighterBT : BehaviorTree.Tree
+public class EnemyAIFighterBT : BehaviorTree.BehaviorTree
 {
     [SerializeField] private List<Transform> waypoints;
     [SerializeField] private float waypointReachedDistance = 1.0f;
@@ -17,11 +17,11 @@ public class EnemyAIFighterBT : BehaviorTree.Tree
     public int currentWaypointIndex = 0;
     public Rigidbody rb;
 
-    protected override Node SetupTree()
+    protected override BehaviorNode SetupTree()
     {
         rb = GetComponent<Rigidbody>();
 
-        Sequence patrolSequence = new Sequence(new List<Node>
+        Sequence patrolSequence = new Sequence(new List<BehaviorNode>
         {
             new PatrolAction(this, waypoints, waypointReachedDistance, speed),
             new AvoidObstacleAction(this, obstacleAvoidanceRadius, obstacleMask, speed) // Pass the speed variable
@@ -31,7 +31,7 @@ public class EnemyAIFighterBT : BehaviorTree.Tree
     }
 }
 
-public class PatrolAction : Node
+public class PatrolAction : BehaviorNode
 {
     private EnemyAIFighterBT bt;
     private List<Transform> waypoints;
@@ -48,11 +48,11 @@ public class PatrolAction : Node
         this.rb = bt.GetComponent<Rigidbody>();
     }
 
-    public override NodeState Evaluate()
+    public override BehaviorNodeState Evaluate()
     {
         if (waypoints.Count == 0)
         {
-            return NodeState.FAILURE;
+            return BehaviorNodeState.FAILURE;
         }
 
         Transform targetWaypoint = waypoints[bt.currentWaypointIndex];
@@ -64,11 +64,11 @@ public class PatrolAction : Node
             bt.currentWaypointIndex = (bt.currentWaypointIndex + 1) % waypoints.Count;
         }
 
-        return NodeState.SUCCESS;
+        return BehaviorNodeState.SUCCESS;
     }
 }
 
-public class AvoidObstacleAction : Node
+public class AvoidObstacleAction : BehaviorNode
 {
     private EnemyAIFighterBT bt;
     private float obstacleAvoidanceRadius;
@@ -85,7 +85,7 @@ public class AvoidObstacleAction : Node
         this.speed = speed; // Assign the speed variable
     }
 
-    public override NodeState Evaluate()
+    public override BehaviorNodeState Evaluate()
     {
         RaycastHit hit;
         if (Physics.SphereCast(bt.transform.position, obstacleAvoidanceRadius, bt.transform.forward, out hit, 100.0f, obstacleMask))
@@ -93,8 +93,8 @@ public class AvoidObstacleAction : Node
             Vector3 avoidanceDirection = (hit.point - bt.transform.position).normalized;
             Vector3 desiredVelocity = bt.transform.forward * speed;
             rb.velocity = Vector3.Lerp(rb.velocity, desiredVelocity + avoidanceDirection, Time.deltaTime);
-            return NodeState.SUCCESS;
+            return BehaviorNodeState.SUCCESS;
         }
-        return NodeState.FAILURE;
+        return BehaviorNodeState.FAILURE;
     }
 }

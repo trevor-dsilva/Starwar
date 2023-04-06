@@ -1,8 +1,12 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using BehaviorTree;
 public class SteeringAgent : MonoBehaviour
 {
+
     public List<SteeringMovement> SteeringMovements;
+    public Assault assault;
+    public Patrol patrol;
 
     public float
         Forward_Force = 3.0f,
@@ -11,11 +15,14 @@ public class SteeringAgent : MonoBehaviour
         TorqueZ_Force = 0.01f;
 
     private Rigidbody Rigidbody;
-    private Vector3 LocalAngularVelocity;
+
     private void Start()
     {
         Rigidbody = GetComponent<Rigidbody>();
+        assault = GetComponent<Assault>();
+        patrol = GetComponent<Patrol>();
     }
+
     private Steering GetSteeringSum()
     {
         Steering ret = new Steering(0, 0, 0, 0);
@@ -26,9 +33,10 @@ public class SteeringAgent : MonoBehaviour
         ret.Clamp(TorqueX_Force, TorqueY_Force, TorqueZ_Force, Forward_Force);
         return ret;
     }
+
     private void FixedUpdate()
     {
-        LocalAngularVelocity = transform.InverseTransformDirection(Rigidbody.angularVelocity);
+        //LocalAngularVelocity = transform.InverseTransformDirection(Rigidbody.angularVelocity);
         Steering finalSteering = GetSteeringSum();
         if (finalSteering.ForwardLinear > 0)
         {
@@ -46,6 +54,130 @@ public class SteeringAgent : MonoBehaviour
         {
             Rigidbody.AddRelativeTorque(Vector3.forward * finalSteering.TorqueZ * TorqueZ_Force, ForceMode.Force);
         }
+    }
+
+    public void Assault()
+    {
+        SteeringMovements.Clear();
+        SteeringMovements.Add(assault);
+    }
+
+    public void Patrol()
+    {
+        patrol.Target = null;
+        SteeringMovements.Clear();
+        SteeringMovements.Add(patrol);
+    }
+
+    public void Dead()
+    {
+        SteeringMovements.Clear();
+    }
+
+}
+
+public class IsAssaultState : BehaviorNode
+{
+    public FighterBT tree;
+    public IsAssaultState(FighterBT tree)
+    {
+        this.tree = tree;
+    }
+
+    public override BehaviorNodeState Evaluate()
+    {
+        if (tree.state == FighterBT.State.Assault)
+        { return BehaviorNodeState.SUCCESS; }
+        else
+        { return BehaviorNodeState.FAILURE; }
+    }
+}
+
+public class SetStateAssault : BehaviorNode
+{
+    public FighterBT tree;
+    public SteeringAgent agent;
+    public SetStateAssault(FighterBT tree, SteeringAgent steeringAgent)
+    {
+        this.tree = tree;
+        agent = steeringAgent;
+    }
+
+    public override BehaviorNodeState Evaluate()
+    {
+        tree.state = FighterBT.State.Assault;
+        agent.Assault();
+        return BehaviorNodeState.SUCCESS;
+    }
+}
+
+public class IsPatrolState : BehaviorNode
+{
+    public FighterBT tree;
+    public IsPatrolState(FighterBT tree)
+    {
+        this.tree = tree;
+    }
+
+    public override BehaviorNodeState Evaluate()
+    {
+        if (tree.state == FighterBT.State.Patrol)
+        { return BehaviorNodeState.SUCCESS; }
+        else
+        { return BehaviorNodeState.FAILURE; }
+    }
+}
+
+public class SetStatePatrol : BehaviorNode
+{
+    public FighterBT tree;
+    public SteeringAgent agent;
+    public SetStatePatrol(FighterBT tree, SteeringAgent steeringAgent)
+    {
+        this.tree = tree;
+        agent = steeringAgent;
+    }
+
+    public override BehaviorNodeState Evaluate()
+    {
+        tree.state = FighterBT.State.Patrol;
+        agent.Patrol();
+        return BehaviorNodeState.SUCCESS;
+    }
+}
+
+public class IsDeadState : BehaviorNode
+{
+    public FighterBT tree;
+    public IsDeadState(FighterBT tree)
+    {
+        this.tree = tree;
+    }
+
+    public override BehaviorNodeState Evaluate()
+    {
+        if (tree.state == FighterBT.State.Dead)
+        { return BehaviorNodeState.SUCCESS; }
+        else
+        { return BehaviorNodeState.FAILURE; }
+    }
+}
+
+public class SetStateDead : BehaviorNode
+{
+    public FighterBT tree;
+    public SteeringAgent agent;
+    public SetStateDead(FighterBT tree, SteeringAgent steeringAgent)
+    {
+        this.tree = tree;
+        agent = steeringAgent;
+    }
+
+    public override BehaviorNodeState Evaluate()
+    {
+        tree.state = FighterBT.State.Dead;
+        agent.Dead();
+        return BehaviorNodeState.SUCCESS;
     }
 }
 

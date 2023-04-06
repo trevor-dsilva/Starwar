@@ -1,9 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 
 namespace BehaviorTree
 {
-    public enum NodeState
+    public enum BehaviorNodeState
     {
         NONE,
         RUNNING,
@@ -11,32 +10,32 @@ namespace BehaviorTree
         FAILURE
     }
 
-    public class Node
+    public class BehaviorNode
     {
-        protected NodeState state;
+        protected BehaviorNodeState state;
 
-        public Node parent;
-        protected List<Node> children = new List<Node>();
+        public BehaviorNode parent;
+        protected List<BehaviorNode> children = new List<BehaviorNode>();
 
         private Dictionary<string, object> _dataContext = new Dictionary<string, object>();
 
-        public Node()
+        public BehaviorNode()
         {
             parent = null;
         }
-        public Node(List<Node> children)
+        public BehaviorNode(List<BehaviorNode> children)
         {
-            foreach (Node child in children)
+            foreach (BehaviorNode child in children)
                 _Attach(child);
         }
 
-        private void _Attach(Node node)
+        private void _Attach(BehaviorNode node)
         {
             node.parent = this;
             children.Add(node);
         }
 
-        public virtual NodeState Evaluate() => NodeState.FAILURE;
+        public virtual BehaviorNodeState Evaluate() => BehaviorNodeState.FAILURE;
 
         public void SetData(string key, object value)
         {
@@ -49,7 +48,7 @@ namespace BehaviorTree
             if (_dataContext.TryGetValue(key, out value))
                 return value;
 
-            Node node = parent;
+            BehaviorNode node = parent;
             while (node != null)
             {
                 value = node.GetData(key);
@@ -68,7 +67,7 @@ namespace BehaviorTree
                 return true;
             }
 
-            Node node = parent;
+            BehaviorNode node = parent;
             while (node != null)
             {
                 bool cleared = node.ClearData(key);

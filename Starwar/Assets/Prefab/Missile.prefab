@@ -150,12 +150,12 @@ MonoBehaviour:
   SteeringMovements:
   - {fileID: 8134042210275865970}
   - {fileID: 6626460254512476753}
-  Forward_Force: 3
+  assault: {fileID: 0}
+  patrol: {fileID: 0}
+  Forward_Force: 6
   TorqueX_Force: 5
   TorqueY_Force: 5
   TorqueZ_Force: 0.1
-  Rigidbody: {fileID: 0}
-  LocalAngularVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &8134042210275865970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,6 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Target: {fileID: 0}
   MaximumAngle: 180
+  MaxVelocity: 3.4028235e+38
 --- !u!114 &6626460254512476753
 MonoBehaviour:
   m_ObjectHideFlags: 0

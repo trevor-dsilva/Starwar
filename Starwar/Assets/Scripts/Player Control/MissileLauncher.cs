@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+
 public class MissileLauncher : MonoBehaviour
 {
     [SerializeField] float InitialLauchForce;
@@ -11,8 +12,8 @@ public class MissileLauncher : MonoBehaviour
         set
         {
             isLoaded = value;
-            if (isLoaded) { gameObject.SetActive(true); }
-            else { gameObject.SetActive(false); }
+            if (isLoaded) { GetComponent<Renderer>().enabled = true; }
+            else { GetComponent<Renderer>().enabled = false; }
         }
     }
     public GameObject Target;

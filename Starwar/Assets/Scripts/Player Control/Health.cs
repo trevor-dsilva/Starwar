@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using BehaviorTree;
+using UnityEngine;
 public class Health : MonoBehaviour
 {
     public float MaxHealth;
-
+    [SerializeField]
     private float currentHealth;
+    [SerializeField]
     private bool isAlive;
 
     public float CurrentHealth
@@ -11,17 +13,17 @@ public class Health : MonoBehaviour
         get { return currentHealth; }
         set
         {
-            Debug.Log("Take Damage " + value);
             if (value <= 0)
             {
                 currentHealth = 0;
                 isAlive = false;
-                Debug.Log("Die");
+                Ship.UnregisterShip(GetComponent<Ship>());
             }
             else { currentHealth = value; }
         }
     }
 
+    public bool IsAlive { get { return isAlive; } }
 
     private void Start()
     {
@@ -39,3 +41,41 @@ public class Health : MonoBehaviour
     }
 
 }
+
+public class AmIHealthy : BehaviorNode
+{
+    public Health myHealth;
+    public float criticalPercentage;
+    public AmIHealthy(Health health, float criticalPercentage)
+    {
+        myHealth = health;
+        this.criticalPercentage = criticalPercentage;
+    }
+
+    public override BehaviorNodeState Evaluate()
+    {
+        float percentage = myHealth.CurrentHealth / myHealth.MaxHealth;
+        if (percentage < criticalPercentage)
+        {
+            return BehaviorNodeState.FAILURE;
+        }
+        else
+        {
+            return BehaviorNodeState.SUCCESS;
+        }
+    }
+}
+
+public class AmIAlive : BehaviorNode
+{
+    public Health myHealth;
+    public AmIAlive(Health health)
+    { myHealth = health; }
+
+    public override BehaviorNodeState Evaluate()
+    {
+        return myHealth.IsAlive ? BehaviorNodeState.SUCCESS : BehaviorNodeState.FAILURE;
+    }
+}
+
+

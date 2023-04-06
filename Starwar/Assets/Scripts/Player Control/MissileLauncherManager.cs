@@ -3,21 +3,33 @@ using System.Collections.Generic;
 public class MissileLauncherManager : MonoBehaviour
 {
     [SerializeField] private List<MissileLauncher> missileLaunchers;
-    [SerializeField] private GameObject ParentObject;
     [SerializeField] float MaxLockOnAngle, MaxLockOnDistance;
     [SerializeField] private LayerMask EnemyMask;
     [SerializeField] private GameObject Target;
 
+    public bool LockOn(GameObject target)
+    {
+        float targetDistance = Vector3.Distance(target.transform.position, transform.position);
+        if (targetDistance > MaxLockOnDistance)
+        {
+            return false;
+        }
+        Vector3 targetDirection = target.transform.position - transform.position;
+        float targetAngle = Vector3.Angle(targetDirection, transform.forward);
+        if (targetAngle > MaxLockOnAngle) { Debug.Log("b"); return false; }
+        Target = target;
+        return true;
+    }
     public void LockOn()
     {
-        Collider[] colliders = Physics.OverlapSphere(ParentObject.transform.position, MaxLockOnDistance, EnemyMask);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, MaxLockOnDistance, EnemyMask);
         Collider targetCollider = null;
         float targetAngle = 0;
         foreach (Collider collider in colliders)
         {
-            if (collider.gameObject == ParentObject) { continue; }
-            Vector3 colliderDirection = collider.transform.position - ParentObject.transform.position;
-            float colliderAngle = Vector3.Angle(ParentObject.transform.forward, colliderDirection);
+            if (collider.gameObject == gameObject) { continue; }
+            Vector3 colliderDirection = collider.transform.position - transform.position;
+            float colliderAngle = Vector3.Angle(transform.forward, colliderDirection);
             if (colliderAngle <= MaxLockOnAngle)
             {
                 if (targetCollider == null)
@@ -52,5 +64,9 @@ public class MissileLauncherManager : MonoBehaviour
                 return;
             }
         }
+        Target = null;
     }
 }
+
+
+
