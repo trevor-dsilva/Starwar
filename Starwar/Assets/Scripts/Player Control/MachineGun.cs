@@ -28,6 +28,4 @@ public class MachineGun : MonoBehaviour
 
         lastFire = Time.fixedTime;
     }
-
-
 }

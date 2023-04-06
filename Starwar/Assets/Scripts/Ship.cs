@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using BehaviorTree;
 
 public class Ship : MonoBehaviour
 {
@@ -62,83 +61,5 @@ public class Ship : MonoBehaviour
     {
         Ships(ship.ShipBelong).Remove(ship);
         Debug.Log(Ships(ship.ShipBelong).Count);
-    }
-}
-
-public class ExistSpottedEnemy : BehaviorNode
-{
-    public Ship.Belong shipBelong;
-    public ExistSpottedEnemy(Ship.Belong shipBelong)
-    {
-        this.shipBelong = shipBelong;
-    }
-
-    public override BehaviorNodeState Evaluate()
-    {
-        switch (shipBelong)
-        {
-            case Ship.Belong.Red:
-                foreach (Ship ship in Ship.BlueShips)
-                {
-                    if (ship.IsSpotted)
-                    {
-                        return BehaviorNodeState.SUCCESS;
-                    }
-                }
-                return BehaviorNodeState.FAILURE;
-            case Ship.Belong.Blue:
-                foreach (Ship ship in Ship.RedShips)
-                {
-                    if (ship.IsSpotted)
-                    {
-                        return BehaviorNodeState.SUCCESS;
-                    }
-                }
-                return BehaviorNodeState.FAILURE;
-            default:
-                return BehaviorNodeState.NONE;
-        }
-    }
-}
-
-public class SpotEnemyInFOV : BehaviorNode
-{
-    public Transform self;
-    public float viewRange;
-    public Ship.Belong shipBelong;
-    // Will cast a ray toward enemy ship, ray should be hit obstacles and enemy ship, but not ally ship.
-    public LayerMask viewMask;
-    public SpotEnemyInFOV(Transform transform, float viewRange, Ship.Belong shipBelong, LayerMask viewMask)
-    {
-        this.self = transform;
-        this.viewRange = viewRange;
-        this.shipBelong = shipBelong;
-        this.viewMask = viewMask;
-    }
-
-    public override BehaviorNodeState Evaluate()
-    {
-        Ship.Belong enenmyBelong = Ship.Belong.Blue;
-        if (shipBelong == Ship.Belong.Blue)
-        {
-            enenmyBelong = Ship.Belong.Red;
-        }
-        foreach (Ship ship in Ship.Ships(enenmyBelong))
-        {
-            if (ship.IsSpotted)
-            {
-                continue;
-            }
-            Vector3 direction = ship.transform.position - self.position;
-            if (Physics.Raycast(self.position, direction, out RaycastHit hitInfo, viewRange, viewMask))
-            {
-                if (hitInfo.collider.gameObject == ship.gameObject)
-                {
-                    ship.Spotted();
-                }
-            }
-            Debug.DrawRay(self.position, direction * viewRange, Color.red, 1);
-        }
-        return BehaviorNodeState.SUCCESS;
     }
 }

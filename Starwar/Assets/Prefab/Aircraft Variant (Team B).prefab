@@ -145,7 +145,7 @@ MonoBehaviour:
   target: {fileID: 0}
   missileReady: 0
   machineGun: {fileID: 7517002876077730921}
-  Kp: {x: 0.9, y: 0.9, z: 0.9}
+  Kp: {x: 0.8, y: 0.8, z: 0.8}
   Ki: {x: 0.25, y: 0.25, z: 0.25}
   Kd: {x: 1.5, y: 1.5, z: 1.5}
   PreviousError: {x: 0, y: 0, z: 0}
@@ -172,9 +172,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Waypoints: []
   target: {fileID: 0}
-  Kp: {x: 400, y: 400, z: 400}
-  Ki: {x: 40, y: 40, z: 40}
-  Kd: {x: 60, y: 60, z: 60}
+  Kp: {x: 0.8, y: 0.8, z: 0.8}
+  Ki: {x: 0.25, y: 0.25, z: 0.25}
+  Kd: {x: 1.5, y: 1.5, z: 1.5}
   PreviousError: {x: 0, y: 0, z: 0}
   SeekAngle: 30
   StopDistance: 10

@@ -184,9 +184,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 0}
-  Kp: {x: 1000, y: 1000, z: 1000}
-  Ki: {x: 200, y: 200, z: 200}
-  Kd: {x: 100, y: 100, z: 100}
+  Kp: {x: 0.8, y: 0.8, z: 0.8}
+  Ki: {x: 0.25, y: 0.25, z: 0.25}
+  Kd: {x: 1.5, y: 1.5, z: 1.5}
   PreviousError: {x: 0, y: 0, z: 0}
 --- !u!1 &6404493939212536208
 GameObject:
