@@ -16,9 +16,22 @@ public class Ship : MonoBehaviour
     public bool IsCargoShip;
 
     private float spotTimeCountDown = 0;
+    private Health _health;
+    private MachineGunManager _machineGunManager;
+    private MissileLauncherManager _missileLauncherManager;
     private void Start()
     {
         RegisterShip(this);
+        _health = GetComponent<Health>();
+        _machineGunManager = GetComponent<MachineGunManager>();
+        _missileLauncherManager = GetComponent<MissileLauncherManager>();
+    }
+    private void FixedUpdate()
+    {
+        if (IsSpotted && spotTimeCountDown <= 0)
+        { Unspotted(); }
+        else
+        { spotTimeCountDown -= Time.fixedDeltaTime; }
     }
     public void Spotted()
     {
@@ -29,14 +42,13 @@ public class Ship : MonoBehaviour
     {
         IsSpotted = false;
     }
-
-    private void FixedUpdate()
+    public void Resupply()
     {
-        if (IsSpotted && spotTimeCountDown <= 0)
-        { Unspotted(); }
-        else
-        { spotTimeCountDown -= Time.fixedDeltaTime; }
+        if (_health != null) { _health.Heal(); }
+        if (_machineGunManager != null) { _machineGunManager.Reload(); }
+        if (_missileLauncherManager != null) { _missileLauncherManager.Reload(); }
     }
+
 
     public static List<Ship> BlueShips = new List<Ship>();
     public static List<Ship> RedShips = new List<Ship>();

@@ -6,7 +6,7 @@ public class PreAim : SteeringMovement
     public float LeadFactor;
     private Vector3 P, I, D;
     public float FireAngle;
-    public MachineGun machineGun;
+    public MachineGunManager machineGunManager;
 
     public override Steering GetSteering(SteeringAgent agent)
     {
@@ -17,7 +17,7 @@ public class PreAim : SteeringMovement
         float fireAngle = Vector3.Angle(targetDirection, agent.transform.forward);
         if (fireAngle <= FireAngle)
         {
-            machineGun.Fire();
+            machineGunManager.Fire();
         }
 
         // Same as LookAtTarget

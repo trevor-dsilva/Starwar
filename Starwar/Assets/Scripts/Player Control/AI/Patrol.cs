@@ -19,7 +19,7 @@ public class Patrol : SteeringMovement
         }
     }
 
-    public Vector3 Kp, Ki, Kd, PreviousError;
+    public Vector3 Kp, Ki, Kd;
     public float SeekAngle, StopDistance, SpeedLimit;
 
     private Seek seek;
@@ -27,7 +27,7 @@ public class Patrol : SteeringMovement
 
     private void Start()
     {
-        seek = new Seek() { MaximumAngle = SeekAngle, MaxVelocity = SpeedLimit };
+        seek = new Seek() { MaximumAngle = SeekAngle, SpeedLimit = SpeedLimit };
         lookAtTarget = new LookAtTarget()
         {
             Kp = Kp,

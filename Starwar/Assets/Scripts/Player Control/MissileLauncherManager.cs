@@ -6,7 +6,23 @@ public class MissileLauncherManager : MonoBehaviour
     [SerializeField] float MaxLockOnAngle, MaxLockOnDistance;
     [SerializeField] private LayerMask EnemyMask;
     [SerializeField] private GameObject Target;
+    public float ReloadInterval;
 
+
+    private int missileLaunchersCount;
+    private float lastReloadTime = 0;
+
+    private void Start()
+    {
+        missileLaunchersCount = 0;
+        foreach (MissileLauncher launcher in missileLaunchers)
+        {
+            if (launcher.IsLoaded)
+            {
+                missileLaunchersCount++;
+            }
+        }
+    }
     public bool LockOn(GameObject target)
     {
         float targetDistance = Vector3.Distance(target.transform.position, transform.position);
@@ -62,10 +78,30 @@ public class MissileLauncherManager : MonoBehaviour
                 missileLauncher.Target = Target;
                 missileLauncher.velocity = GetComponent<Rigidbody>().velocity;
                 missileLauncher.Launch();
+                missileLaunchersCount--;
                 return;
             }
         }
         Target = null;
+    }
+    public void Reload(bool all = false)
+    {
+        if (missileLaunchersCount < missileLaunchers.Count)
+        {
+            if (lastReloadTime + ReloadInterval <= Time.fixedTime)
+            {
+                lastReloadTime = Time.fixedTime;
+                foreach (MissileLauncher missileLauncher in missileLaunchers)
+                {
+                    if (!missileLauncher.IsLoaded)
+                    {
+                        missileLauncher.IsLoaded = true;
+                        missileLaunchersCount++;
+                        if (!all) { return; }
+                    }
+                }
+            }
+        }
     }
 }
 

@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2023790603333108586, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
+      propertyPath: Interval
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 4942797449781423098, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -53,7 +57,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4942797449781423101, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
       propertyPath: m_Name
-      value: Aircraft Variant (Team B)
+      value: Aircraft AI (Team B)
       objectReference: {fileID: 0}
     - target: {fileID: 4942797449781423101, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
       propertyPath: m_Layer
@@ -61,6 +65,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5267818423541402850, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
       propertyPath: ShipBelong
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6422670733436022941, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6422670733436022941, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7279724647060895533, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7279724647060895533, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
+      propertyPath: m_LocalPosition.z
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7829057209599095777, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
@@ -78,17 +98,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 4942797449781423099, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
---- !u!114 &7517002876077730921 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5031685119913294486, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
-  m_PrefabInstance: {fileID: 3280275005396424447}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dd7a983746ab744ea51522a0a6d7c23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7574413194778819842 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4942797449781423101, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
@@ -109,6 +118,7 @@ MonoBehaviour:
   SteeringMovements: []
   assault: {fileID: 0}
   patrol: {fileID: 0}
+  retreat: {fileID: 0}
   Forward_Force: 3
   TorqueX_Force: 0.8
   TorqueY_Force: 0.8
@@ -127,6 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   viewRange: 500
+  criticalHealthPercentage: 0.3
   viewMask:
     serializedVersion: 2
     m_Bits: 72
@@ -144,11 +155,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   missileReady: 0
-  machineGun: {fileID: 7517002876077730921}
   Kp: {x: 0.8, y: 0.8, z: 0.8}
   Ki: {x: 0.25, y: 0.25, z: 0.25}
   Kd: {x: 1.5, y: 1.5, z: 1.5}
-  PreviousError: {x: 0, y: 0, z: 0}
   SeekAngle: 30
   FleeAngle: 180
   MachineGunFireAngle: 20
@@ -158,6 +167,26 @@ MonoBehaviour:
   MaxDogFightDistance: 100
   MinDogFightDistance: 25
   state: 0
+--- !u!114 &6042175960863426330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7574413194778819842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 076db154291292d40bb7b3a620d9e049, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  ArriveAngle: 20
+  ArriveStopDistance: 15
+  ArriveSlowDistance: 30
+  ArriveSpeedLimit: 5
+  Kp: {x: 0.8, y: 0.8, z: 0.8}
+  Ki: {x: 0.25, y: 0.25, z: 0.25}
+  Kd: {x: 1.5, y: 1.5, z: 1.5}
 --- !u!114 &6821495272990909341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,7 +204,6 @@ MonoBehaviour:
   Kp: {x: 0.8, y: 0.8, z: 0.8}
   Ki: {x: 0.25, y: 0.25, z: 0.25}
   Kd: {x: 1.5, y: 1.5, z: 1.5}
-  PreviousError: {x: 0, y: 0, z: 0}
   SeekAngle: 30
   StopDistance: 10
   SpeedLimit: 3

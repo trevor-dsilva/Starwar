@@ -40,8 +40,7 @@ public class Assault : SteeringMovement
     private LookAway lookAway;
     private LaunchMissile lauchMissile;
 
-    public MachineGun machineGun;
-    public Vector3 Kp, Ki, Kd, PreviousError;
+    public Vector3 Kp, Ki, Kd;
     public float SeekAngle, FleeAngle, MachineGunFireAngle, LeadFactor, MissileLaunchAngle;
 
     public float MaxTailgateDistance, MaxDogFightDistance, MinDogFightDistance;
@@ -57,7 +56,7 @@ public class Assault : SteeringMovement
             Kp = Kp,
             Ki = Ki,
             Kd = Kd,
-            machineGun = machineGun
+            machineGunManager = GetComponent<MachineGunManager>(),
         };
         lookAtTarget = new LookAtTarget()
         {

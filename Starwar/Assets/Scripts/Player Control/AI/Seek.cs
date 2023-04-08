@@ -2,7 +2,7 @@
 public class Seek : SteeringMovement
 {
     public GameObject Target;
-    public float MaximumAngle, MaxVelocity = float.MaxValue;
+    public float MaximumAngle, SpeedLimit = float.MaxValue;
     public override Steering GetSteering(SteeringAgent agent)
     {
         Steering ret = base.GetSteering(agent);
@@ -11,7 +11,7 @@ public class Seek : SteeringMovement
 
         if (angle <= MaximumAngle)
         {
-            if (MaxVelocity == float.MaxValue)
+            if (SpeedLimit == float.MaxValue)
             {
                 ret.ForwardLinear = 1;
             }
@@ -21,7 +21,7 @@ public class Seek : SteeringMovement
                 Vector3 selfVelocity = agent.GetComponent<Rigidbody>().velocity;
                 Vector3 velocityTowardTarget = Vector3.Project(selfVelocity, targetDirection);
                 float speedTowardTarget = velocityTowardTarget.magnitude * Mathf.Sign(Vector3.Dot(selfVelocity.normalized, targetDirection.normalized));
-                if (speedTowardTarget < MaxVelocity)
+                if (speedTowardTarget < SpeedLimit)
                 {
                     ret.ForwardLinear = 1;
                 }

@@ -6,6 +6,7 @@ public class SteeringAgent : MonoBehaviour
     public List<SteeringMovement> SteeringMovements;
     public Assault assault;
     public Patrol patrol;
+    public Retreat retreat;
 
     public float
         Forward_Force = 3.0f,
@@ -20,6 +21,7 @@ public class SteeringAgent : MonoBehaviour
         Rigidbody = GetComponent<Rigidbody>();
         assault = GetComponent<Assault>();
         patrol = GetComponent<Patrol>();
+        retreat = GetComponent<Retreat>();
     }
 
     private Steering GetSteeringSum()
@@ -76,7 +78,7 @@ public class SteeringAgent : MonoBehaviour
     public void Retreat()
     {
         SteeringMovements.Clear();
-        //SteeringMovements.Add(retreat);
+        SteeringMovements.Add(retreat);
     }
 
 }

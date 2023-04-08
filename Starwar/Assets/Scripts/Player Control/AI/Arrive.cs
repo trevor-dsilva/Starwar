@@ -2,7 +2,7 @@
 public class Arrive : SteeringMovement
 {
     public GameObject Target;
-    public float MaximumAngle, StopDistance;
+    public float MaximumAngle, StopDistance, SlowDistance, SlowZoneSpeedLimit;
     public override Steering GetSteering(SteeringAgent agent)
     {
         Steering ret = base.GetSteering(agent);
@@ -13,10 +13,23 @@ public class Arrive : SteeringMovement
 
         if (angle <= MaximumAngle)
         {
-            if (distance > StopDistance)
+            if (distance < SlowDistance)
             {
-                ret.ForwardLinear = 1;
+                if (distance < StopDistance)
+                {
+                    return ret;
+                }
+                // Speed Limit
+                Vector3 selfVelocity = agent.GetComponent<Rigidbody>().velocity;
+                Vector3 velocityTowardTarget = Vector3.Project(selfVelocity, targetDirection);
+                float speedTowardTarget = velocityTowardTarget.magnitude * Mathf.Sign(Vector3.Dot(selfVelocity.normalized, targetDirection.normalized));
+                if (speedTowardTarget < SlowZoneSpeedLimit)
+                {
+                    ret.ForwardLinear = 1;
+                }
+                return ret;
             }
+            ret.ForwardLinear = 1;
         }
 
         return ret;
