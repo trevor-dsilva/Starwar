@@ -220,10 +220,10 @@ MonoBehaviour:
   machineGuns:
   - {fileID: 5031685119913294486}
   - {fileID: 8787381637877136678}
-  FireInterval: 0.05
+  FireInterval: 0.1
   Ammunition: 0
   MaxAmmunition: 100
-  ReloadInterval: 0.1
+  ReloadInterval: 0.05
 --- !u!1001 &248725358208990718
 PrefabInstance:
   m_ObjectHideFlags: 0

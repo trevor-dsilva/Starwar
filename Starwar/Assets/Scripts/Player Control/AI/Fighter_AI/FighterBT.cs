@@ -561,7 +561,7 @@ public class SpotEnemyInFOV : BehaviorNode
                     ship.Spotted();
                 }
             }
-            Debug.DrawRay(self.position, direction * viewRange, Color.red, 1);
+            Debug.DrawRay(self.position, direction * viewRange, Color.red);
         }
         return BehaviorNodeState.SUCCESS;
     }

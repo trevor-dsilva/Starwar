@@ -119,10 +119,39 @@ MonoBehaviour:
   assault: {fileID: 0}
   patrol: {fileID: 0}
   retreat: {fileID: 0}
+  aiAvoidance: {fileID: 0}
   Forward_Force: 3
   TorqueX_Force: 0.8
   TorqueY_Force: 0.8
   TorqueZ_Force: 0.1
+--- !u!114 &2780864909270961995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7574413194778819842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e5acf0e5a99e49439a8d2e8f0ac03e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionDistanceRatio: 10
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  horizontalRays: 3
+  verticalRays: 3
+  horizontalAngle: 20
+  verticalAngle: 20
+  fleeAngle: 0
+  Kp: {x: 0.8, y: 0.8, z: 0.8}
+  Ki: {x: 0.25, y: 0.25, z: 0.25}
+  Kd: {x: 1.5, y: 1.5, z: 1.5}
+  weight: 0
+  minimumSpeed: 1
+  minimumDistanceRatio: 0.4
+  target: {fileID: 0}
 --- !u!114 &5275520568009412707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,7 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  viewRange: 500
+  viewRange: 250
   criticalHealthPercentage: 0.3
   viewMask:
     serializedVersion: 2
@@ -154,7 +183,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  missileReady: 0
   Kp: {x: 0.8, y: 0.8, z: 0.8}
   Ki: {x: 0.25, y: 0.25, z: 0.25}
   Kd: {x: 1.5, y: 1.5, z: 1.5}
@@ -163,6 +191,7 @@ MonoBehaviour:
   MachineGunFireAngle: 20
   LeadFactor: 20
   MissileLaunchAngle: 10
+  MissileLaunchInterval: 2
   MaxTailgateDistance: 150
   MaxDogFightDistance: 100
   MinDogFightDistance: 25
@@ -182,7 +211,7 @@ MonoBehaviour:
   target: {fileID: 0}
   ArriveAngle: 20
   ArriveStopDistance: 15
-  ArriveSlowDistance: 30
+  ArriveSlowDistance: 40
   ArriveSpeedLimit: 5
   Kp: {x: 0.8, y: 0.8, z: 0.8}
   Ki: {x: 0.25, y: 0.25, z: 0.25}

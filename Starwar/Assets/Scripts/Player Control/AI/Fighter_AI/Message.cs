@@ -10,7 +10,7 @@ public class Message : BehaviorNode
     }
     public override BehaviorNodeState Evaluate()
     {
-        //Debug.Log(message);
+        // Debug.Log(message);
         return BehaviorNodeState.RUNNING;
     }
 }

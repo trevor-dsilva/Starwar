@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Ship : MonoBehaviour
@@ -73,6 +74,7 @@ public class Ship : MonoBehaviour
     public static void UnregisterShip(Ship ship)
     {
         Ships(ship.ShipBelong).Remove(ship);
-        Debug.Log(Ships(ship.ShipBelong).Count);
+        
+        Debug.Log(Enum.GetName(typeof(Ship.Belong), ship.ShipBelong) + " Team has " + Ships(ship.ShipBelong).Count + " Ships left");
     }
 }

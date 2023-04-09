@@ -48,4 +48,4 @@ MonoBehaviour:
   Force: 3
   BulletLifetime: 5
   BulletPrefab: {fileID: 3823042094287634631, guid: 1e20b73de1f4cd94c9a47125d5ad4e64, type: 3}
-  ParentRigidBody: {fileID: 0}
+  velocity: {x: 0, y: 0, z: 0}

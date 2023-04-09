@@ -29,14 +29,14 @@ public class MachineGunManager : MonoBehaviour
         lastMachineGun++;
         if (lastMachineGun >= machineGuns.Count)
         { lastMachineGun = 0; }
-        Debug.Log(Ammunition);
+        //Debug.Log(Ammunition);
 
         lastFire = Time.fixedTime;
     }
 
     public void Reload(int amount = 1)
     {
-        Debug.Log("Machine Gun Manager Reload");
+        //Debug.Log("Machine Gun Manager Reload");
         if (Ammunition < MaxAmmunition)
         {
             if (lastReloadTime + ReloadInterval <= Time.fixedTime)
