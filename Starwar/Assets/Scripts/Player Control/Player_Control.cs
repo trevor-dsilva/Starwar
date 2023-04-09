@@ -16,9 +16,14 @@ public class Player_Control : MonoBehaviour
     private MissileLauncherManager missileLauncherManager;
 
     private Rigidbody _rigidbody;
+    private SoundController soundController;
+    private Vector3 lastSpot;
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        soundController = GetComponent<SoundController>();
+        lastSpot = transform.position;
+
     }
 
     private void FixedUpdate()
@@ -48,14 +53,22 @@ public class Player_Control : MonoBehaviour
         if (Input.GetButton("Fire1"))
         {
             Debug.Log("Fire bullet");
+            soundController.playLaser();
             machineGun.Fire();
         }
 
         if (Input.GetButtonDown("Fire2"))
         {
             Debug.Log("Fire Missile");
+            soundController.playMissile();
             missileLauncherManager.LockOn();
             missileLauncherManager.Fire();
         }
+
+        
+        soundController.playEngine(lastSpot - transform.position);
+        lastSpot = transform.position;
+
+
     }
 }
