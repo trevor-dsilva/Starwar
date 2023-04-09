@@ -67,6 +67,7 @@ public class IsPatrolTargetNull : BehaviorNode
 
 public class SetPatrolNewTarget : BehaviorNode
 {
+
     public Patrol patrol;
     public SetPatrolNewTarget(Patrol patrol)
     {
@@ -122,6 +123,7 @@ public class SetPatrolNextTarget : BehaviorNode
 
     public override BehaviorNodeState Evaluate()
     {
+        Debug.Log("Test");
         int index = patrol.Waypoints.IndexOf(patrol.Target.transform);
         index++;
         if (index >= patrol.Waypoints.Count) { index = 0; }

@@ -678,3 +678,26 @@ public class IsAmmunitionFull : BehaviorNode
         return machineGunManager.Ammunition >= machineGunManager.MaxAmmunition ? BehaviorNodeState.SUCCESS : BehaviorNodeState.FAILURE;
     }
 }
+
+public class AvoidObstaclesNode : BehaviorNode
+{
+    private AIAvoidance aiAvoidance;
+    private SteeringAgent agent;
+
+    public AvoidObstaclesNode(AIAvoidance aiAvoidance, SteeringAgent agent)
+    {
+        this.aiAvoidance = aiAvoidance;
+        this.agent = agent;
+    }
+
+    public override BehaviorNodeState Evaluate()
+    {
+        // Calculate avoidance force using AIAvoidance
+        Steering avoidanceSteering = aiAvoidance.GetSteering(agent);
+
+        // Apply avoidance force and torque directly within Evaluate()
+        
+
+        return BehaviorNodeState.SUCCESS;
+    }
+}

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AIPlaneObstacleAvoidance : MonoBehaviour
+public class AIAvoidance : SteeringMovement
 {
     public float maxAvoidanceForce = 50f;
     public float detectionDistance = 100f;
@@ -17,7 +17,15 @@ public class AIPlaneObstacleAvoidance : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    void FixedUpdate()
+    // Override GetSteering method to return avoidance force as a Steering object
+    public override Steering GetSteering(SteeringAgent agent)
+    {
+        Vector3 avoidanceForce = CalculateAvoidanceForce();
+        // Return avoidance force as Steering with torque values set to zero
+        return new Steering(0, 0, 0, avoidanceForce.magnitude);
+    }
+
+    private Vector3 CalculateAvoidanceForce()
     {
         Vector3 avoidanceForce = Vector3.zero;
         float closestHitDistance = float.MaxValue;
@@ -40,24 +48,20 @@ public class AIPlaneObstacleAvoidance : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(transform.position, rayDirection, out hit, detectionDistance, obstacleLayer))
                 {
-                    // Draw a red line when the ray hits an obstacle
                     Debug.DrawLine(transform.position, hit.point, Color.red);
 
                     if (hit.distance < closestHitDistance)
                     {
                         closestHitDistance = hit.distance;
-                        Vector3 targetDirection = (hit.point - transform.position).normalized;
                         avoidanceForce = (transform.right * maxAvoidanceForce) * (1.0f - hit.distance / detectionDistance);
                     }
                 }
                 else
                 {
-                    // Draw a green line when there's no obstacle detected
                     Debug.DrawLine(transform.position, transform.position + rayDirection * detectionDistance, Color.green);
                 }
             }
         }
-
-        rb.AddForce(avoidanceForce, ForceMode.Force);
+        return avoidanceForce;
     }
 }

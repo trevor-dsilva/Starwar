@@ -8,6 +8,9 @@ public class SteeringAgent : MonoBehaviour
     public Patrol patrol;
     public Retreat retreat;
 
+    // Add AIAvoidance reference
+    public AIAvoidance aiAvoidance;
+
     public float
         Forward_Force = 3.0f,
         TorqueX_Force = 0.1f,
@@ -22,6 +25,9 @@ public class SteeringAgent : MonoBehaviour
         assault = GetComponent<Assault>();
         patrol = GetComponent<Patrol>();
         retreat = GetComponent<Retreat>();
+
+        // Add GetComponent<AIAvoidance>() line in Start() method
+        aiAvoidance = GetComponent<AIAvoidance>();
     }
 
     private Steering GetSteeringSum()
@@ -31,6 +37,8 @@ public class SteeringAgent : MonoBehaviour
         {
             ret.Add(steeringMovement.GetSteering(this));
         }
+
+
         ret.Clamp(TorqueX_Force, TorqueY_Force, TorqueZ_Force, Forward_Force);
         return ret;
     }
@@ -80,5 +88,13 @@ public class SteeringAgent : MonoBehaviour
         SteeringMovements.Clear();
         SteeringMovements.Add(retreat);
     }
+
+    // Add methods Avoidance behavior
+    public void Avoidance()
+    {
+        SteeringMovements.Clear();
+        SteeringMovements.Add(aiAvoidance);
+    }
+
 
 }
