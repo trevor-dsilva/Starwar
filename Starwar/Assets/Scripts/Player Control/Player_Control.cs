@@ -34,11 +34,11 @@ public class Player_Control : MonoBehaviour
         if (!Mathf.Approximately(Input.GetAxis("TorqueY"), 0f))
         {
             // Turns like in space
-            _rigidbody.AddRelativeTorque(Vector3.up * Input.GetAxis("TorqueY") * TorqueY_Force, ForceMode.Force);
+            //_rigidbody.AddRelativeTorque(Vector3.up * Input.GetAxis("TorqueY") * TorqueY_Force, ForceMode.Force);
 
             // Turns like in air
-            //_rigidbody.AddRelativeTorque(Vector3.left * Input.GetAxis("TorqueY") * TorqueX_Force, ForceMode.Force);
-            //_rigidbody.AddRelativeTorque(Vector3.forward * -Input.GetAxis("TorqueY") * TorqueZ_Force, ForceMode.Force);
+            _rigidbody.AddRelativeTorque(Vector3.left * Input.GetAxis("TorqueY") * TorqueX_Force, ForceMode.Force);
+            _rigidbody.AddRelativeTorque(Vector3.forward * -Input.GetAxis("TorqueY") * TorqueZ_Force, ForceMode.Force);
         }
         if (!Mathf.Approximately(Input.GetAxis("TorqueZ"), 0f))
         {

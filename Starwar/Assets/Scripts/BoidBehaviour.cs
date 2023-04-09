@@ -14,6 +14,8 @@ public class BoidBehaviour : MonoBehaviour
     float noiseOffset;
     public GameObject currWaypoint;
     Vector3 waypointVec;
+    [SerializeField] private float _rotationSpeed = 5f;
+    private Vector3 _previousPosition;
 
     // Caluculates the separation vector with a target.
     Vector3 GetSeparationVector(Transform target)
@@ -26,7 +28,7 @@ public class BoidBehaviour : MonoBehaviour
 
     void Start()
     {
-
+        _previousPosition = transform.position;
         noiseOffset = Random.value * 10.0f;
 
         currWaypoint = controller.currWayNode;
@@ -74,18 +76,29 @@ public class BoidBehaviour : MonoBehaviour
 
         // Calculates a rotation from the vectors.
         var direction = separation + alignment + cohesion;
-        var rotation = Quaternion.FromToRotation(Vector3.forward, direction.normalized);
+       
 
-        // Applys the rotation with interpolation.
-        if (rotation != currentRotation)
-        {
-            var ip = Mathf.Exp(-controller.rotationCoeff * Time.deltaTime);
-            transform.rotation = Quaternion.Slerp(rotation, currentRotation, ip);
-        }
+       
 
         waypointVec = MoveToWaypoint(currWaypoint);
-        // Moves forawrd.
+        // Moves forawrd. 
+        
+        
+
         transform.position += waypointVec.normalized * (velocity * Time.deltaTime);
+
+        Vector3 lookDirection = transform.position - _previousPosition;
+
+        if (lookDirection.magnitude > 0.01f)
+        {
+            // Calculate the target rotation based on the direction of movement
+            Quaternion targetRotation = Quaternion.LookRotation(-lookDirection, Vector3.up);
+
+            // Rotate towards the target rotation using Slerp for smooth rotation
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+        }
+
+        _previousPosition = transform.position;
     }
 
 
