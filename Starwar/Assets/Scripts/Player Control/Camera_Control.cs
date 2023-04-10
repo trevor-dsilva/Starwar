@@ -15,7 +15,7 @@ public class Camera_Control : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 newCameraPosition = ParentTransform.position - 10.0f * ParentTransform.forward + 5.0f * ParentTransform.up;
+        Vector3 newCameraPosition = ParentTransform.position - 14.0f * ParentTransform.forward + 3.0f * ParentTransform.up;
         transform.position = Scale * transform.position + (1 - Scale) * newCameraPosition;
 
         transform.LookAt(ParentTransform.position + ParentTransform.forward * 5.0f, ParentTransform.up);
