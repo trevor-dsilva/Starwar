@@ -1,31 +1,19 @@
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
 public class EnemyAllyIdentifier : MonoBehaviour
 {
-    public Transform character;
-    public Camera aiPlaneCamera;
-    public GameObject enemyPrefab;
-    public GameObject allyPrefab;
+    public Ship ship;
     public float circleRadius = 5f;
-    public float detectionRadius = 15f;
 
-    private List<GameObject> enemies;
-    private List<GameObject> allies;
+    private Camera aiPlaneCamera;
     private GUIStyle redStyle;
     private GUIStyle greenStyle;
 
     void Start()
     {
-        enemies = new List<GameObject>();
-        allies = new List<GameObject>();
         InitializeGUIStyles();
-    }
-
-    void Update()
-    {
-        IdentifyObjects();
+        aiPlaneCamera= GetComponent<Camera>();
     }
 
     private void InitializeGUIStyles()
@@ -39,30 +27,13 @@ public class EnemyAllyIdentifier : MonoBehaviour
         greenStyle.fontSize = 20;
     }
 
-    private void IdentifyObjects()
-    {
-        enemies.Clear();
-        allies.Clear();
-
-        Collider[] hitColliders = Physics.OverlapSphere(character.position, detectionRadius);
-
-        foreach (Collider hitCollider in hitColliders)
-        {
-            if (hitCollider.CompareTag("Enemy"))
-            {
-                enemies.Add(hitCollider.gameObject);
-            }
-            else if (hitCollider.CompareTag("Ally"))
-            {
-                allies.Add(hitCollider.gameObject);
-            }
-        }
-    }
 
     void OnGUI()
     {
-        foreach (GameObject enemy in enemies)
+        foreach (Ship enemy in Ship.EnemyShips(ship.ShipBelong))
         {
+            if (!enemy.IsSpotted) { continue; }
+            if (!enemy.GetComponent<Health>().IsAlive) { continue; }
             Vector3 screenPos = aiPlaneCamera.WorldToScreenPoint(enemy.transform.position);
 
             if (IsObjectVisible(screenPos))
@@ -72,8 +43,9 @@ public class EnemyAllyIdentifier : MonoBehaviour
             }
         }
 
-        foreach (GameObject ally in allies)
+        foreach (Ship ally in Ship.Ships(ship.ShipBelong))
         {
+            if (!ally.GetComponent<Health>().IsAlive) { continue; }
             Vector3 screenPos = aiPlaneCamera.WorldToScreenPoint(ally.transform.position);
 
             if (IsObjectVisible(screenPos))
@@ -102,12 +74,5 @@ public class EnemyAllyIdentifier : MonoBehaviour
         EditorGUI.DrawRect(new Rect(rect.x, rect.y, borderWidth, rect.height), borderColor);
         // Right border
         EditorGUI.DrawRect(new Rect(rect.x + rect.width - borderWidth, rect.y, borderWidth, rect.height), borderColor);
-    }
-
-
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(character.position, detectionRadius);
     }
 }

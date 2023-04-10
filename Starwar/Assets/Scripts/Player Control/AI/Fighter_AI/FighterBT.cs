@@ -28,7 +28,6 @@ public class FighterBT : BehaviorTree.BehaviorTree
                     new Message("1"),
                     new IsAlive(GetComponent<Health>()),
                     new Message("2"),
-                    new SpotEnemyInFOV(transform, viewRange, GetComponent<Ship>().ShipBelong, viewMask),
                     new Message("3"),
                     new Selector(new List<BehaviorNode>
                     {
@@ -521,49 +520,6 @@ public class ExistSpottedEnemy : BehaviorNode
             default:
                 return BehaviorNodeState.NONE;
         }
-    }
-}
-
-/// <summary>
-/// If there is enemy ship in FOV, invoke his ship.Spotted().
-/// FOV is a sphere.
-/// Cannot spot enemy behind cover.
-/// Always return success.
-/// </summary>
-public class SpotEnemyInFOV : BehaviorNode
-{
-    public Transform self;
-    public float viewRange;
-    public Ship.Belong shipBelong;
-    // Will cast a ray toward enemy ship, ray should be hit obstacles and enemy ship, but not ally ship.
-    public LayerMask viewMask;
-    public SpotEnemyInFOV(Transform transform, float viewRange, Ship.Belong shipBelong, LayerMask viewMask)
-    {
-        this.self = transform;
-        this.viewRange = viewRange;
-        this.shipBelong = shipBelong;
-        this.viewMask = viewMask;
-    }
-    public override BehaviorNodeState Evaluate()
-    {
-        Ship.Belong enenmyBelong = Ship.Belong.Blue;
-        if (shipBelong == Ship.Belong.Blue)
-        {
-            enenmyBelong = Ship.Belong.Red;
-        }
-        foreach (Ship ship in Ship.Ships(enenmyBelong))
-        {
-            Vector3 direction = ship.transform.position - self.position;
-            if (Physics.Raycast(self.position, direction, out RaycastHit hitInfo, viewRange, viewMask))
-            {
-                if (hitInfo.collider.gameObject == ship.gameObject)
-                {
-                    ship.Spotted();
-                }
-            }
-            Debug.DrawRay(self.position, direction * viewRange, Color.red, 1);
-        }
-        return BehaviorNodeState.SUCCESS;
     }
 }
 

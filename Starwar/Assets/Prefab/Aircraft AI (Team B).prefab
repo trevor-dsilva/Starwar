@@ -5,7 +5,6 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2023790603333108586, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
@@ -14,7 +13,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4942797449781423098, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4942797449781423098, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
       propertyPath: m_LocalPosition.x
@@ -68,6 +67,10 @@ PrefabInstance:
       propertyPath: ShipBelong
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5267818423541402850, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
+      propertyPath: viewMask.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 6422670733436022941, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.3
@@ -98,27 +101,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4942797449781423099, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4942797449781423101, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1396029868431263928}
-    - targetCorrespondingSourceObject: {fileID: 4942797449781423101, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5275520568009412707}
-    - targetCorrespondingSourceObject: {fileID: 4942797449781423101, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5887325200747016967}
-    - targetCorrespondingSourceObject: {fileID: 4942797449781423101, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6042175960863426330}
-    - targetCorrespondingSourceObject: {fileID: 4942797449781423101, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6821495272990909341}
-    - targetCorrespondingSourceObject: {fileID: 4942797449781423101, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3638653028870142980}
   m_SourcePrefab: {fileID: 100100000, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
 --- !u!1 &7574413194778819842 stripped
 GameObject:
@@ -146,6 +128,27 @@ MonoBehaviour:
   TorqueX_Force: 0.8
   TorqueY_Force: 0.8
   TorqueZ_Force: 0.1
+--- !u!114 &3638653028870142980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7574413194778819842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e5acf0e5a99e49439a8d2e8f0ac03e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxAvoidanceForce: 500
+  detectionDistance: 100
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  horizontalRays: 8
+  verticalRays: 4
+  horizontalAngle: 45
+  verticalAngle: 30
 --- !u!114 &5275520568009412707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,24 +236,3 @@ MonoBehaviour:
   SeekAngle: 30
   StopDistance: 10
   SpeedLimit: 3
---- !u!114 &3638653028870142980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7574413194778819842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e5acf0e5a99e49439a8d2e8f0ac03e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxAvoidanceForce: 500
-  detectionDistance: 100
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  horizontalRays: 8
-  verticalRays: 4
-  horizontalAngle: 45
-  verticalAngle: 30

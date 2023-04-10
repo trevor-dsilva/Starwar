@@ -14,6 +14,8 @@ public class Ship : MonoBehaviour
     public float SpotTime = 3.0f;
     public Belong ShipBelong;
     public bool IsCargoShip;
+    public float viewRange; 
+    public LayerMask viewMask;
 
     private float spotTimeCountDown = 0;
     private Health _health;
@@ -28,10 +30,26 @@ public class Ship : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (IsSpotted && spotTimeCountDown <= 0)
-        { Unspotted(); }
-        else
-        { spotTimeCountDown -= Time.fixedDeltaTime; }
+        if (_health.IsAlive)
+        {
+            if (IsSpotted && spotTimeCountDown <= 0)
+            { Unspotted(); }
+            else
+            { spotTimeCountDown -= Time.fixedDeltaTime; }
+
+            foreach (Ship ship in Ship.EnemyShips(ShipBelong))
+            {
+                Vector3 direction = ship.transform.position - transform.position;
+                if (Physics.Raycast(transform.position, direction, out RaycastHit hitInfo, viewRange, viewMask))
+                {
+                    if (hitInfo.collider.gameObject == ship.gameObject)
+                    {
+                        ship.Spotted();
+                    }
+                }
+                Debug.DrawRay(transform.position, direction * viewRange, Color.red, 1);
+            }
+        }
     }
     public void Spotted()
     {
@@ -61,6 +79,19 @@ public class Ship : MonoBehaviour
                 return RedShips;
             case Belong.Blue:
                 return BlueShips;
+            default:
+                return null;
+        }
+    }
+
+    public static List<Ship> EnemyShips(Belong shipBelong)
+    {
+        switch (shipBelong)
+        {
+            case Belong.Red:
+                return BlueShips;
+            case Belong.Blue:
+                return RedShips;
             default:
                 return null;
         }
