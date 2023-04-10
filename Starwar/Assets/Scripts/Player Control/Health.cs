@@ -3,7 +3,7 @@ public class Health : MonoBehaviour
 {
     public float MaxHealth;
     [SerializeField]
-    private float currentHealth;
+    public float currentHealth;
     [SerializeField]
     private bool isAlive;
     public float HealInterval;
