@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3665613b32e21948885269ffe9d2a0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Forward_Force: 1
+  Forward_Force: 3
   TorqueX_Force: 0.2
   TorqueY_Force: 0.1
   TorqueZ_Force: 0.05
