@@ -5,9 +5,11 @@ public class AircraftVFX : MonoBehaviour
     [SerializeField] private GameObject whiteSmoke;
     [SerializeField] private GameObject darkSmoke;
     [SerializeField] private GameObject fireSmoke;
+    [SerializeField] private GameObject destoryFire;
     [SerializeField] private GameObject explosion;
 
     private Health aircraftHealth;
+    private bool hasExploded = false;
 
     private void Start()
     {
@@ -37,13 +39,14 @@ public class AircraftVFX : MonoBehaviour
         whiteSmoke.SetActive(healthPercentage >= 60f && healthPercentage <= 80f);
         darkSmoke.SetActive(healthPercentage >= 30f && healthPercentage < 60f);
         fireSmoke.SetActive(healthPercentage > 0f && healthPercentage < 30f);
+        destoryFire.SetActive(healthPercentage == 0f);
 
-        if (aircraftHealth.currentHealth == 0f)
+        if (aircraftHealth.currentHealth == 0f && !hasExploded)
         {
+            hasExploded = true;
             explosion.SetActive(true);
-            Debug.Log("test");
             Instantiate(explosion, transform.position, transform.rotation);
-            Destroy(gameObject);
+            explosion.SetActive(false);
         }
     }
 }
