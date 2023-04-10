@@ -11,6 +11,7 @@ public class MachineGunManager : MonoBehaviour
     private int lastMachineGun;
     private Rigidbody _rigidbody;
     private float lastReloadTime = 0;
+    [SerializeField] private SoundController soundController;
     private void Start()
     {
         lastFire = Time.fixedTime;
@@ -25,6 +26,7 @@ public class MachineGunManager : MonoBehaviour
 
         machineGuns[lastMachineGun].velocity = _rigidbody.velocity;
         machineGuns[lastMachineGun].Fire();
+        soundController.playLaser();
         Ammunition--;
         lastMachineGun++;
         if (lastMachineGun >= machineGuns.Count)

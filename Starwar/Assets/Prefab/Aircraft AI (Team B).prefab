@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 456836389487436992, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2023790603333108586, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
       propertyPath: Interval
       value: 0.05
@@ -63,6 +67,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 5116399270080742546, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5267818423541402850, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
       propertyPath: ShipBelong
       value: 1
@@ -99,6 +107,10 @@ PrefabInstance:
       propertyPath: EnemyMask.m_Bits
       value: 64
       objectReference: {fileID: 0}
+    - target: {fileID: 8471364628968424610, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
+      propertyPath: Engine
+      value: 
+      objectReference: {fileID: 7675535349770359405}
     m_RemovedComponents:
     - {fileID: 4942797449781423099, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
@@ -240,3 +252,8 @@ MonoBehaviour:
   SeekAngle: 30
   StopDistance: 10
   SpeedLimit: 3
+--- !u!82 &7675535349770359405 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 5116399270080742546, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
+  m_PrefabInstance: {fileID: 3280275005396424447}
+  m_PrefabAsset: {fileID: 0}

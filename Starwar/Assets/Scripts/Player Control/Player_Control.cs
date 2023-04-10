@@ -53,14 +53,12 @@ public class Player_Control : MonoBehaviour
         if (Input.GetButton("Fire1"))
         {
             Debug.Log("Fire bullet");
-            soundController.playLaser();
             machineGun.Fire();
         }
 
         if (Input.GetButtonDown("Fire2"))
         {
-            Debug.Log("Fire Missile");
-            soundController.playMissile();
+            Debug.Log("Fire Missile");   
             missileLauncherManager.LockOn();
             missileLauncherManager.Fire();
         }
