@@ -2,31 +2,30 @@
 public class PreAim : SteeringMovement
 {
     public GameObject target;
-    public Rigidbody targetBody;
     public Vector3 Kp, Ki, Kd, PreviousError;
     public float LeadFactor;
     private Vector3 P, I, D;
     public float FireAngle;
-    public MachineGun machineGun;
+    public MachineGunManager machineGunManager;
 
     public override Steering GetSteering(SteeringAgent agent)
     {
         Steering ret = base.GetSteering(agent);
 
-        Vector3 targetFuturPosition = target.transform.position + LeadFactor * targetBody.velocity;
-        Vector3 targetDirection = targetFuturPosition - transform.position;
-        float fireAngle = Vector3.Angle(targetDirection, transform.forward);
+        Vector3 targetFuturPosition = target.transform.position + LeadFactor * target.GetComponent<Rigidbody>().velocity;
+        Vector3 targetDirection = targetFuturPosition - agent.transform.position;
+        float fireAngle = Vector3.Angle(targetDirection, agent.transform.forward);
         if (fireAngle <= FireAngle)
         {
-            machineGun.Fire();
+            machineGunManager.Fire();
         }
 
         // Same as LookAtTarget
-        float angleFromUpToTargetDirection = Vector3.Angle(transform.up, targetDirection);
-        float angleFromDownToTargetDirection = Vector3.Angle(-transform.up, targetDirection);
+        float angleFromUpToTargetDirection = Vector3.Angle(agent.transform.up, targetDirection);
+        float angleFromDownToTargetDirection = Vector3.Angle(-agent.transform.up, targetDirection);
 
-        float angleFromLeftToTargetDirection = Vector3.Angle(-transform.right, targetDirection);
-        float angleFromRightToTargetDirection = Vector3.Angle(transform.right, targetDirection);
+        float angleFromLeftToTargetDirection = Vector3.Angle(-agent.transform.right, targetDirection);
+        float angleFromRightToTargetDirection = Vector3.Angle(agent.transform.right, targetDirection);
 
         // With PID
         float currentError = (angleFromDownToTargetDirection - angleFromUpToTargetDirection) / 180;
@@ -55,30 +54,10 @@ public class PreAim : SteeringMovement
         float torqueZ = P.z * Kp.z + I.z * Ki.z + D.z * Kd.z;
         torqueZ = Mathf.Clamp(torqueZ, -1.0f, 1.0f);
 
-
-        // Without PID
-
-        //float torqueX = (angleFromDownToTargetDirection - angleFromUpToTargetDirection) / 30;
-        //torqueX = Mathf.Clamp(torqueX, -1, 1);
-        //if (angleFromDownToTargetDirection < angleFromUpToTargetDirection) { ret.TorqueX = -1; }
-        //else { ret.TorqueX = 1; }
-
-        //float torqueY = (angleFromLeftToTargetDirection - angleFromRightToTargetDirection) / 30;
-        //torqueY = Mathf.Clamp(torqueY, -1, 1);
-
-        //float torqueZ = -torqueY;
-
-        //if (angleFromLeftToTargetDirection < angleFromRightToTargetDirection) { ret.TorqueY = -1; ret.TorqueZ = 1; }
-        //else { ret.TorqueY = 1; ret.TorqueZ = -1; }
-
-
-
-
         ret.TorqueX = torqueX;
         ret.TorqueY = torqueY;
         ret.TorqueZ = torqueZ;
 
-        //Debug.Log(agent.Rigidbody.angularVelocity + " " + agent.LocalAngularVelocity);
         return ret;
     }
 }

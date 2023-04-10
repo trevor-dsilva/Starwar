@@ -8,8 +8,8 @@ public class Shoot : SteeringMovement
     public override Steering GetSteering(SteeringAgent agent)
     {
         Steering ret = base.GetSteering(agent);
-        Vector3 direction = Target.transform.position - transform.position;
-        float angle = Vector3.Angle(direction, transform.forward);
+        Vector3 direction = Target.transform.position - agent.transform.position;
+        float angle = Vector3.Angle(direction, agent.transform.forward);
         if (angle <= Angle)
         {
             machineGun.Fire();

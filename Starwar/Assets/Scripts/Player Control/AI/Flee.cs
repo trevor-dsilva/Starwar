@@ -2,14 +2,14 @@
 public class Flee : SteeringMovement
 {
     public GameObject target;
-    public float MinimumAngle;
+    public float MaximumAngle;
     public override Steering GetSteering(SteeringAgent agent)
     {
         Steering ret = base.GetSteering(agent);
-        Vector3 targetDirection = target.transform.position - transform.position;
-        float angle = Vector3.Angle(targetDirection, transform.forward);
+        Vector3 fleeDirection = agent.transform.position - target.transform.position;
+        float angle = Vector3.Angle(fleeDirection, agent.transform.forward);
 
-        if (angle <= MinimumAngle)
+        if (angle <= MaximumAngle)
         {
             ret.ForwardLinear = 1;
         }

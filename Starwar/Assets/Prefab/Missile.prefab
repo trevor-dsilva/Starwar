@@ -105,7 +105,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!65 &676512542326102869
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -134,7 +134,7 @@ MonoBehaviour:
   DamageRadius: 0
   DamageAmount: 0
   ExplotionPrefeb: {fileID: 1647573212144765128, guid: cb5b549bd0dc2f546a06f9602ec9226d, type: 3}
-  InitialLauchForce: 0
+  InitialVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &297334768914900331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,12 +150,14 @@ MonoBehaviour:
   SteeringMovements:
   - {fileID: 8134042210275865970}
   - {fileID: 6626460254512476753}
-  Forward_Force: 3
-  TorqueX_Force: 5
-  TorqueY_Force: 5
-  TorqueZ_Force: 0.1
-  Rigidbody: {fileID: 0}
-  LocalAngularVelocity: {x: 0, y: 0, z: 0}
+  assault: {fileID: 0}
+  patrol: {fileID: 0}
+  retreat: {fileID: 0}
+  aiAvoidance: {fileID: 0}
+  Forward_Force: 10
+  TorqueX_Force: 20
+  TorqueY_Force: 20
+  TorqueZ_Force: 20
 --- !u!114 &8134042210275865970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,6 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Target: {fileID: 0}
   MaximumAngle: 180
+  SpeedLimit: 3.4028235e+38
 --- !u!114 &6626460254512476753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,9 +186,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 0}
-  Kp: {x: 1000, y: 1000, z: 1000}
-  Ki: {x: 200, y: 200, z: 200}
-  Kd: {x: 100, y: 100, z: 100}
+  Kp: {x: 10, y: 10, z: 10}
+  Ki: {x: 0.1, y: 0.1, z: 0.1}
+  Kd: {x: 0.1, y: 0.1, z: 0.1}
   PreviousError: {x: 0, y: 0, z: 0}
 --- !u!1 &6404493939212536208
 GameObject:

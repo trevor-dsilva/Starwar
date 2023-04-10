@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+
 public class MissileLauncher : MonoBehaviour
 {
-    [SerializeField] float InitialLauchForce;
+    public Vector3 velocity;
     [SerializeField]
     private GameObject MissilePrefab;
     private bool isLoaded = true;
@@ -11,8 +12,8 @@ public class MissileLauncher : MonoBehaviour
         set
         {
             isLoaded = value;
-            if (isLoaded) { gameObject.SetActive(true); }
-            else { gameObject.SetActive(false); }
+            if (isLoaded) { GetComponent<Renderer>().enabled = true; }
+            else { GetComponent<Renderer>().enabled = false; }
         }
     }
     public GameObject Target;
@@ -23,7 +24,7 @@ public class MissileLauncher : MonoBehaviour
         {
             GameObject missleObject = Instantiate(MissilePrefab, transform.position - 2 * transform.up, transform.rotation);
             Missile missle = missleObject.GetComponent<Missile>();
-            missle.InitialLauchForce = InitialLauchForce;
+            missle.InitialVelocity = velocity;
             missle.Target = Target;
             IsLoaded = false;
         }

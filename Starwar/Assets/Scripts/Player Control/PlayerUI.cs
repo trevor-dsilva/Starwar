@@ -18,10 +18,5 @@ public class PlayerUI: MonoBehaviour
         //Health
         string healthString = aircraft.GetComponent<Health>().CurrentHealth.ToString("F0");
         healthText.GetComponent<Text>().text = "Health: " + healthString;
-
-     
-
-
-
     }
 }
