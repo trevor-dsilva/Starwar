@@ -2,34 +2,77 @@ using UnityEngine;
 
 public class AIAvoidance : SteeringMovement
 {
-    public float maxAvoidanceForce = 50f;
-    public float detectionDistance = 100f;
+    public float detectionDistanceRatio = 10f;
     public LayerMask obstacleLayer;
     public int horizontalRays = 8;
     public int verticalRays = 4;
-    public float horizontalAngle = 45f;
-    public float verticalAngle = 30f;
+    public float
+        horizontalAngle = 45f,
+        verticalAngle = 30f,
+        fleeAngle;
+    public Vector3 Kp, Ki, Kd;
+    public float weight, minimumSpeed, minimumDistanceRatio;
 
     private Rigidbody rb;
+    private Avoid avoid;
+    private float detectionDistance;
+    private Vector3 P, I, D, PreviousError;
 
-    void Start()
+    [SerializeField]
+    private GameObject target;
+    public GameObject Target
+    {
+        get { return target; }
+        set
+        {
+            avoid.target = value;
+            target = value;
+        }
+    }
+
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        avoid = new Avoid()
+        {
+            Kp = Kp,
+            Ki = Ki,
+            Kd = Kd
+        };
     }
 
     // Override GetSteering method to return avoidance force as a Steering object
     public override Steering GetSteering(SteeringAgent agent)
     {
-        Vector3 avoidanceForce = CalculateAvoidanceForce();
-        // Return avoidance force as Steering with torque values set to zero
-        return new Steering(0, 0, 0, avoidanceForce.magnitude);
+        Steering ret = base.GetSteering(agent);
+
+        SetDetectionDistance();
+        Target = Detect(out float hitDistance);
+        SetWeight(hitDistance);
+        if (Target == null) { return ret; }
+
+        ret.Add(avoid.GetSteering(agent));
+        return ret;
+    }
+    private void SetDetectionDistance()
+    {
+        detectionDistance = 20 + detectionDistanceRatio * rb.velocity.magnitude;
+    }
+    private void SetWeight(float hitDistance)
+    {
+        if (Target == null) { weight = 0; }
+        else
+        {
+            weight = ((detectionDistance - hitDistance) / (detectionDistance * minimumDistanceRatio));
+            if (weight > 1) { weight = 1; }
+        }
     }
 
-    private Vector3 CalculateAvoidanceForce()
+    private GameObject Detect(out float closestHitDistance)
     {
-        Vector3 avoidanceForce = Vector3.zero;
-        float closestHitDistance = float.MaxValue;
-
+        GameObject ret = null;
+        closestHitDistance = float.MaxValue;
+        Vector3 velocityDirection = Vector3.Normalize(rb.velocity);
         for (int i = 0; i < horizontalRays; i++)
         {
             for (int j = 0; j < verticalRays; j++)
@@ -43,17 +86,16 @@ public class AIAvoidance : SteeringMovement
                 Quaternion horizontalRotation = Quaternion.AngleAxis(currentHorizontalAngle, transform.up);
                 Quaternion verticalRotation = Quaternion.AngleAxis(currentVerticalAngle, transform.right);
 
-                Vector3 rayDirection = verticalRotation * horizontalRotation * transform.forward;
+                Vector3 rayDirection = verticalRotation * horizontalRotation * velocityDirection;
 
-                RaycastHit hit;
-                if (Physics.Raycast(transform.position, rayDirection, out hit, detectionDistance, obstacleLayer))
+                if (Physics.Raycast(transform.position, rayDirection, out RaycastHit raycastHit, detectionDistance, obstacleLayer))
                 {
-                    Debug.DrawLine(transform.position, hit.point, Color.red);
+                    Debug.DrawLine(transform.position, raycastHit.point, Color.red);
 
-                    if (hit.distance < closestHitDistance)
+                    if (raycastHit.distance < closestHitDistance && ret != raycastHit.transform.gameObject)
                     {
-                        closestHitDistance = hit.distance;
-                        avoidanceForce = (transform.right * maxAvoidanceForce) * (1.0f - hit.distance / detectionDistance);
+                        closestHitDistance = raycastHit.distance;
+                        ret = raycastHit.transform.gameObject;
                     }
                 }
                 else
@@ -62,6 +104,6 @@ public class AIAvoidance : SteeringMovement
                 }
             }
         }
-        return avoidanceForce;
+        return ret;
     }
 }

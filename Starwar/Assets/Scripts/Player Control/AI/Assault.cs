@@ -21,17 +21,17 @@ public class Assault : SteeringMovement
             target = value;
         }
     }
-    [SerializeField]
-    private bool missileReady;
-    public bool MissileReady
-    {
-        get { return missileReady; }
-        set
-        {
-            lauchMissile.Ready = value;
-            missileReady = value;
-        }
-    }
+    //[SerializeField]
+    //private bool missileReady;
+    //public bool MissileReady
+    //{
+    //    get { return missileReady; }
+    //    set
+    //    {
+    //        lauchMissile.Ready = value;
+    //        missileReady = value;
+    //    }
+    //}
 
     private Seek seek;
     private Flee flee;
@@ -41,10 +41,10 @@ public class Assault : SteeringMovement
     private LaunchMissile lauchMissile;
 
     public Vector3 Kp, Ki, Kd;
-    public float SeekAngle, FleeAngle, MachineGunFireAngle, LeadFactor, MissileLaunchAngle;
+    public float SeekAngle, FleeAngle, MachineGunFireAngle, LeadFactor, MissileLaunchAngle, MissileLaunchInterval;
 
     public float MaxTailgateDistance, MaxDogFightDistance, MinDogFightDistance;
-    public State state = State.Tailgate;
+    public State state = State.DogFight;
 
     private void Start()
     {
@@ -72,7 +72,8 @@ public class Assault : SteeringMovement
         };
         lauchMissile = new LaunchMissile()
         {
-            Angle = MissileLaunchAngle
+            Angle = MissileLaunchAngle,
+            Interval = MissileLaunchInterval,
         };
         Target = target;
     }
@@ -87,7 +88,7 @@ public class Assault : SteeringMovement
                 ret.Add(lookAtTarget.GetSteering(agent));
                 ret.Add(seek.GetSteering(agent));
                 ret.Add(lauchMissile.GetSteering(agent));
-                missileReady = lauchMissile.Ready;
+                //missileReady = lauchMissile.Ready;
                 break;
             case State.DogFight:
                 ret.Add(seek.GetSteering(agent));
@@ -121,14 +122,14 @@ public class Assault : SteeringMovement
                 else if (distance > MaxDogFightDistance)
                 {
                     state = State.Tailgate;
-                    MissileReady = true;
+                    //MissileReady = true;
                 }
                 break;
             case State.Pull:
                 if (distance > MaxTailgateDistance)
                 {
                     state = State.Tailgate;
-                    MissileReady = true;
+                    //MissileReady = true;
                 }
                 break;
         }

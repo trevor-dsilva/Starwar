@@ -153,10 +153,11 @@ MonoBehaviour:
   assault: {fileID: 0}
   patrol: {fileID: 0}
   retreat: {fileID: 0}
+  aiAvoidance: {fileID: 0}
   Forward_Force: 10
-  TorqueX_Force: 15
-  TorqueY_Force: 15
-  TorqueZ_Force: 15
+  TorqueX_Force: 20
+  TorqueY_Force: 20
+  TorqueZ_Force: 20
 --- !u!114 &8134042210275865970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,7 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Target: {fileID: 0}
   MaximumAngle: 180
-  MaxVelocity: 3.4028235e+38
+  SpeedLimit: 3.4028235e+38
 --- !u!114 &6626460254512476753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,7 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 0}
-  Kp: {x: 1, y: 1, z: 1}
+  Kp: {x: 10, y: 10, z: 10}
   Ki: {x: 0.1, y: 0.1, z: 0.1}
   Kd: {x: 0.1, y: 0.1, z: 0.1}
   PreviousError: {x: 0, y: 0, z: 0}

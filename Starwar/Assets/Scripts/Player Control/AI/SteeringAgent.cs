@@ -28,18 +28,33 @@ public class SteeringAgent : MonoBehaviour
 
         // Add GetComponent<AIAvoidance>() line in Start() method
         aiAvoidance = GetComponent<AIAvoidance>();
+        if (patrol != null)
+        {
+            Patrol();
+        }
     }
 
     private Steering GetSteeringSum()
     {
         Steering ret = new Steering(0, 0, 0, 0);
-        foreach (SteeringMovement steeringMovement in SteeringMovements)
+        if (aiAvoidance != null)
         {
-            ret.Add(steeringMovement.GetSteering(this));
+            ret.Add(aiAvoidance.GetSteering(this), aiAvoidance.weight);
+            foreach (SteeringMovement steeringMovement in SteeringMovements)
+            {
+                ret.Add(steeringMovement.GetSteering(this), 1 - aiAvoidance.weight);
+            }
+        }
+        else
+        {
+            foreach (SteeringMovement steeringMovement in SteeringMovements)
+            {
+                ret.Add(steeringMovement.GetSteering(this));
+            }
         }
 
-
         ret.Clamp(TorqueX_Force, TorqueY_Force, TorqueZ_Force, Forward_Force);
+
         return ret;
     }
 
@@ -81,6 +96,7 @@ public class SteeringAgent : MonoBehaviour
     public void Dead()
     {
         SteeringMovements.Clear();
+        aiAvoidance = null;
     }
 
     public void Retreat()
@@ -88,13 +104,4 @@ public class SteeringAgent : MonoBehaviour
         SteeringMovements.Clear();
         SteeringMovements.Add(retreat);
     }
-
-    // Add methods Avoidance behavior
-    public void Avoidance()
-    {
-        SteeringMovements.Clear();
-        SteeringMovements.Add(aiAvoidance);
-    }
-
-
 }
