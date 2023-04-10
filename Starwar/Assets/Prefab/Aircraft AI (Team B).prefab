@@ -67,6 +67,10 @@ PrefabInstance:
       propertyPath: ShipBelong
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5267818423541402850, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
+      propertyPath: viewMask.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 6422670733436022941, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.3
