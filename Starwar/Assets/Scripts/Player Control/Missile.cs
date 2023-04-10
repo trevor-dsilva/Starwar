@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
+
 public class Missile : MonoBehaviour
 {
     [SerializeField] private float DamageRadius, DamageAmount;
     [SerializeField] private GameObject ExplotionPrefeb;
-    public float InitialLauchForce;
+    public Vector3 InitialVelocity;
     private GameObject target;
     public GameObject Target
     {
@@ -22,6 +23,10 @@ public class Missile : MonoBehaviour
     {
         seek = GetComponent<Seek>();
         lookAtTarget = GetComponent<LookAtTarget>();
+    }
+    private void Start()
+    {
+        GetComponent<Rigidbody>().velocity = InitialVelocity;
     }
     private void OnCollisionEnter(Collision collision)
     {

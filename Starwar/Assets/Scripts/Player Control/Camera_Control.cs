@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class Camera_Control : MonoBehaviour
 {
     [SerializeField] private float MaxRotation, Scale;
-    [SerializeField] private Rigidbody ParentBody;
-    [SerializeField] private Transform ParentTransform;
-    private Vector3 previousAngularVelocity;
+    private Transform ParentTransform;
+    [SerializeField] private List<Transform> Parents;
+    private int index = 0;
 
     private void Start()
     {
-        previousAngularVelocity = Vector3.zero;
+        ParentTransform = Parents[index];
     }
 
     private void FixedUpdate()
@@ -18,12 +19,18 @@ public class Camera_Control : MonoBehaviour
         transform.position = Scale * transform.position + (1 - Scale) * newCameraPosition;
 
         transform.LookAt(ParentTransform.position + ParentTransform.forward * 5.0f, ParentTransform.up);
-        //Debug.Log(ParentBody.angularVelocity);
-        //Vector3 angularVelocityDifference = ParentBody.angularVelocity - previousAngularVelocity;
-        //transform.Rotate(ParentTransform.right, angularVelocityDifference.x * Scale);
-        //transform.Rotate(ParentTransform.up, angularVelocityDifference.y * Scale);
-        //transform.Rotate(ParentTransform.forward, angularVelocityDifference.z * Scale);
-
-        //previousAngularVelocity = ParentBody.angularVelocity;
+    }
+    private void Update()
+    {
+        if (Input.GetButtonDown("Jump"))
+        {
+            index++;
+            if (index >= Parents.Count)
+            {
+                index = 0;
+            }
+            ParentTransform = Parents[index];
+            Debug.Log("Viewing " + ParentTransform.name);
+        }
     }
 }

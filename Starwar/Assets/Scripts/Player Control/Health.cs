@@ -2,27 +2,29 @@
 public class Health : MonoBehaviour
 {
     public float MaxHealth;
-
-    private static float currentHealth;
+    [SerializeField]
+    private float currentHealth;
+    [SerializeField]
     private bool isAlive;
+    public float HealInterval;
 
     public float CurrentHealth
     {
         get { return currentHealth; }
         set
         {
-            Debug.Log("Take Damage " + value);
             if (value <= 0)
             {
                 currentHealth = 0;
                 isAlive = false;
-                Debug.Log("Die");
+                Ship.UnregisterShip(GetComponent<Ship>());
             }
             else { currentHealth = value; }
         }
     }
+    public bool IsAlive { get { return isAlive; } }
 
-
+    private float lastHealTime = 0;
     private void Start()
     {
         currentHealth = MaxHealth;
@@ -38,4 +40,17 @@ public class Health : MonoBehaviour
         }
     }
 
+    public void Heal(float amount = 1)
+    {
+        if (CurrentHealth < MaxHealth)
+        {
+            if (lastHealTime + HealInterval <= Time.fixedTime)
+            {
+                lastHealTime = Time.fixedTime;
+                CurrentHealth += amount;
+                if (CurrentHealth > MaxHealth) { CurrentHealth = MaxHealth; }
+            }
+        }
+    }
 }
+
