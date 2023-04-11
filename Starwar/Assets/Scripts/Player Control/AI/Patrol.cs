@@ -18,21 +18,22 @@ public class Patrol : SteeringMovement
             seek.Target = value.gameObject;
         }
     }
-
-    public Vector3 Kp, Ki, Kd;
+    
     public float SeekAngle, StopDistance, SpeedLimit;
 
     private Seek seek;
     private LookAtTarget lookAtTarget;
+    private PID pid;
 
     private void Start()
     {
+        pid = GetComponent<PID>();
         seek = new Seek() { MaximumAngle = SeekAngle, SpeedLimit = SpeedLimit };
         lookAtTarget = new LookAtTarget()
         {
-            Kp = Kp,
-            Ki = Ki,
-            Kd = Kd
+            Kp = pid.Kp,
+            Ki = pid.Ki,
+            Kd = pid.Kd,
         };
         Target = target;
     }

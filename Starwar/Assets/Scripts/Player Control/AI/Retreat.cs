@@ -15,14 +15,14 @@ public class Retreat : SteeringMovement
         }
     }
     public float ArriveAngle, ArriveStopDistance, ArriveSlowDistance, ArriveSpeedLimit;
-    public Vector3 Kp, Ki, Kd;
-
 
     private Arrive arrive;
     private LookAtTarget lookAtTarget;
+    private PID pid;
 
     private void Start()
     {
+        pid = GetComponent<PID>();
         arrive = new Arrive()
         {
             MaximumAngle = ArriveAngle,
@@ -32,9 +32,9 @@ public class Retreat : SteeringMovement
         };
         lookAtTarget = new LookAtTarget()
         {
-            Kp = Kp,
-            Ki = Ki,
-            Kd = Kd
+            Kp = pid.Kp,
+            Ki = pid.Ki,
+            Kd = pid.Kd,
         };
     }
 
