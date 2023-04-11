@@ -6705,19 +6705,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4942797449781423099, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
       propertyPath: Forward_Force
-      value: 10
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4942797449781423099, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
       propertyPath: TorqueX_Force
-      value: 0.6
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 4942797449781423099, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
       propertyPath: TorqueY_Force
-      value: 0.3
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4942797449781423099, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
       propertyPath: TorqueZ_Force
-      value: 0.15
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 4942797449781423101, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
       propertyPath: m_Name
