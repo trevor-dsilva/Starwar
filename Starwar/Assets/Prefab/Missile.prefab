@@ -206,7 +206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Target: {fileID: 0}
   Kp: {x: 1, y: 1, z: 1}
-  Ki: {x: 0.5, y: 0.5, z: 0.5}
+  Ki: {x: 0.2, y: 0.2, z: 0.2}
   Kd: {x: 0.5, y: 0.5, z: 0.5}
   PreviousError: {x: 0, y: 0, z: 0}
 --- !u!1 &6404493939212536208

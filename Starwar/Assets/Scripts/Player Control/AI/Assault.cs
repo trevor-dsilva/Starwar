@@ -21,17 +21,6 @@ public class Assault : SteeringMovement
             target = value;
         }
     }
-    //[SerializeField]
-    //private bool missileReady;
-    //public bool MissileReady
-    //{
-    //    get { return missileReady; }
-    //    set
-    //    {
-    //        lauchMissile.Ready = value;
-    //        missileReady = value;
-    //    }
-    //}
 
     private Seek seek;
     private Flee flee;
@@ -39,8 +28,7 @@ public class Assault : SteeringMovement
     private LookAtTarget lookAtTarget;
     private LookAway lookAway;
     private LaunchMissile lauchMissile;
-
-    public Vector3 Kp, Ki, Kd;
+    private PID pid;
     public float SeekAngle, FleeAngle, MachineGunFireAngle, LeadFactor, MissileLaunchAngle, MissileLaunchInterval;
 
     public float MaxTailgateDistance, MaxDogFightDistance, MinDogFightDistance;
@@ -48,27 +36,28 @@ public class Assault : SteeringMovement
 
     private void Start()
     {
+        pid = GetComponent<PID>();
         seek = new Seek() { MaximumAngle = SeekAngle };
         flee = new Flee() { MaximumAngle = FleeAngle };
         preAim = new PreAim()
         {
             FireAngle = MachineGunFireAngle,
-            Kp = Kp,
-            Ki = Ki,
-            Kd = Kd,
+            Kp = pid.Kp,
+            Ki = pid.Ki,
+            Kd = pid.Kd,
             machineGunManager = GetComponent<MachineGunManager>(),
         };
         lookAtTarget = new LookAtTarget()
         {
-            Kp = Kp,
-            Ki = Ki,
-            Kd = Kd
+            Kp = pid.Kp,
+            Ki = pid.Ki,
+            Kd = pid.Kd,
         };
         lookAway = new LookAway()
         {
-            Kp = Kp,
-            Ki = Ki,
-            Kd = Kd
+            Kp = pid.Kp,
+            Ki = pid.Ki,
+            Kd = pid.Kd,
         };
         lauchMissile = new LaunchMissile()
         {
