@@ -13,7 +13,6 @@ public class Shoot : SteeringMovement
         float angle = Vector3.Angle(direction, agent.transform.forward);
         if (angle <= Angle)
         {
-            soundController.playLaser();
             machineGun.Fire();
         }
         return ret;
