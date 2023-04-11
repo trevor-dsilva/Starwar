@@ -1,4 +1,4 @@
-using UnityEditor;
+
 using UnityEngine;
 
 public class EnemyAllyIdentifier : MonoBehaviour
@@ -64,15 +64,20 @@ public class EnemyAllyIdentifier : MonoBehaviour
                screenPos.y > 0 && screenPos.y < Screen.height;
     }
 
-    void DrawBorderRect(Rect rect, int borderWidth, Color borderColor)
+    void DrawBorderRect(Rect rect, int borderWidth, Color Color)
     {
+        Texture2D borderColor = new Texture2D(1,1);
+        borderColor.SetPixel(0,0,Color);
+        borderColor.Apply();
+
+
         // Top border
-        EditorGUI.DrawRect(new Rect(rect.x, rect.y, rect.width, borderWidth), borderColor);
+        GUI.DrawTexture(new Rect(rect.x, rect.y, rect.width, borderWidth), borderColor);
         // Bottom border
-        EditorGUI.DrawRect(new Rect(rect.x, rect.y + rect.height - borderWidth, rect.width, borderWidth), borderColor);
+        GUI.DrawTexture(new Rect(rect.x, rect.y + rect.height - borderWidth, rect.width, borderWidth), borderColor);
         // Left border
-        EditorGUI.DrawRect(new Rect(rect.x, rect.y, borderWidth, rect.height), borderColor);
+        GUI.DrawTexture(new Rect(rect.x, rect.y, borderWidth, rect.height), borderColor);
         // Right border
-        EditorGUI.DrawRect(new Rect(rect.x + rect.width - borderWidth, rect.y, borderWidth, rect.height), borderColor);
+        GUI.DrawTexture(new Rect(rect.x + rect.width - borderWidth, rect.y, borderWidth, rect.height), borderColor);
     }
 }
