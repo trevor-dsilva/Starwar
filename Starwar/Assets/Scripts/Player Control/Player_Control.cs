@@ -9,21 +9,19 @@ public class Player_Control : MonoBehaviour
         TorqueY_Force = 0.1f,
         TorqueZ_Force = 0.01f;
 
-    [SerializeField]
-    private MachineGun machineGun;
 
-    [SerializeField]
+    private MachineGunManager machineGunManager;
     private MissileLauncherManager missileLauncherManager;
-
     private Rigidbody _rigidbody;
     private SoundController soundController;
-    
+
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
         soundController = GetComponent<SoundController>();
         soundController.Engine.loop = true;
-
+        missileLauncherManager = GetComponent<MissileLauncherManager>();
+        machineGunManager = GetComponent<MachineGunManager>();
     }
 
     private void FixedUpdate()
@@ -54,20 +52,21 @@ public class Player_Control : MonoBehaviour
         if (Input.GetButton("Fire1"))
         {
             Debug.Log("Fire bullet");
-            machineGun.Fire();
+            machineGunManager.Fire();
         }
 
         if (Input.GetButtonDown("Fire2"))
         {
-            Debug.Log("Fire Missile");   
+            Debug.Log("Fire Missile");
             missileLauncherManager.LockOn();
             missileLauncherManager.Fire();
         }
 
-        if (Input.GetAxis("Vertical") == 0){
+        if (Input.GetAxis("Vertical") == 0)
+        {
             soundController.stopEngine();
         }
-        
+
 
 
     }
