@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 456836389487436992, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
@@ -79,22 +80,6 @@ PrefabInstance:
       propertyPath: viewMask.m_Bits
       value: 64
       objectReference: {fileID: 0}
-    - target: {fileID: 6422670733436022941, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6422670733436022941, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7279724647060895533, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7279724647060895533, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7829057209599095777, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
       propertyPath: EnemyMask.m_Bits
       value: 64
@@ -113,6 +98,30 @@ PrefabInstance:
       objectReference: {fileID: 7675535349770359405}
     m_RemovedComponents:
     - {fileID: 4942797449781423099, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4942797449781423101, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1396029868431263928}
+    - targetCorrespondingSourceObject: {fileID: 4942797449781423101, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2780864909270961995}
+    - targetCorrespondingSourceObject: {fileID: 4942797449781423101, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5275520568009412707}
+    - targetCorrespondingSourceObject: {fileID: 4942797449781423101, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5887325200747016967}
+    - targetCorrespondingSourceObject: {fileID: 4942797449781423101, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6042175960863426330}
+    - targetCorrespondingSourceObject: {fileID: 4942797449781423101, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6821495272990909341}
+    - targetCorrespondingSourceObject: {fileID: 4942797449781423101, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 455185655837367045}
   m_SourcePrefab: {fileID: 100100000, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
 --- !u!1 &7574413194778819842 stripped
 GameObject:
@@ -182,7 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   viewRange: 250
-  criticalHealthPercentage: 0.3
+  criticalHealthPercentage: 0.5
   viewMask:
     serializedVersion: 2
     m_Bits: 72
@@ -199,18 +208,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  Kp: {x: 0.8, y: 0.8, z: 0.8}
-  Ki: {x: 0.25, y: 0.25, z: 0.25}
-  Kd: {x: 1.5, y: 1.5, z: 1.5}
-  SeekAngle: 30
+  SeekAngle: 20
   FleeAngle: 180
-  MachineGunFireAngle: 20
-  LeadFactor: 20
+  MachineGunFireAngle: 10
+  LeadFactor: 1
   MissileLaunchAngle: 10
   MissileLaunchInterval: 2
-  MaxTailgateDistance: 150
-  MaxDogFightDistance: 100
-  MinDogFightDistance: 25
+  MaxTailgateDistance: 200
+  MaxDogFightDistance: 125
+  MinDogFightDistance: 75
   state: 0
 --- !u!114 &6042175960863426330
 MonoBehaviour:
@@ -229,9 +235,6 @@ MonoBehaviour:
   ArriveStopDistance: 15
   ArriveSlowDistance: 40
   ArriveSpeedLimit: 5
-  Kp: {x: 0.8, y: 0.8, z: 0.8}
-  Ki: {x: 0.25, y: 0.25, z: 0.25}
-  Kd: {x: 1.5, y: 1.5, z: 1.5}
 --- !u!114 &6821495272990909341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,12 +249,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Waypoints: []
   target: {fileID: 0}
-  Kp: {x: 0.8, y: 0.8, z: 0.8}
-  Ki: {x: 0.25, y: 0.25, z: 0.25}
-  Kd: {x: 1.5, y: 1.5, z: 1.5}
-  SeekAngle: 30
+  SeekAngle: 5
   StopDistance: 10
   SpeedLimit: 3
+--- !u!114 &455185655837367045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7574413194778819842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60cb4307cbeb5084c99c32c9c0f5c131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Kp: {x: 1.5, y: 1.5, z: 1.5}
+  Ki: {x: 0.2, y: 0.2, z: 0.2}
+  Kd: {x: 3, y: 3, z: 3}
 --- !u!82 &7675535349770359405 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 5116399270080742546, guid: 028066df5d2c5a74597a3a6023755a40, type: 3}
