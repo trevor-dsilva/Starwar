@@ -6,14 +6,22 @@ using UnityEngine.SceneManagement;
 public class Menu : MonoBehaviour
 {
     public Button start;
+    public Button exit;
 
     private void Start()
     {
         start.onClick.AddListener(TaskOnClick);
+        exit.onClick.AddListener(EndGame);
+
     }
     // Update is called once per frame
     public void TaskOnClick()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
+    }
+
+    public void EndGame()
+    {
+        Application.Quit();
     }
 }
