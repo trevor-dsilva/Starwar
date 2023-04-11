@@ -14,6 +14,6 @@ public class Menu : MonoBehaviour
     // Update is called once per frame
     public void TaskOnClick()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }
