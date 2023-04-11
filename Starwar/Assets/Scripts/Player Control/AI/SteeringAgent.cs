@@ -2,7 +2,6 @@
 using UnityEngine;
 public class SteeringAgent : MonoBehaviour
 {
-
     public List<SteeringMovement> SteeringMovements;
     public Assault assault;
     public Patrol patrol;

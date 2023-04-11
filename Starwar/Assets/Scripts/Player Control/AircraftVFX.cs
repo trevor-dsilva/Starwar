@@ -7,12 +7,13 @@ public class AircraftVFX : MonoBehaviour
     [SerializeField] private GameObject fireSmoke;
     [SerializeField] private GameObject destoryFire;
     [SerializeField] private GameObject explosion;
-
+     private SoundController soundController;
     private Health aircraftHealth;
     private bool hasExploded = false;
 
     private void Start()
     {
+        soundController = GetComponent<SoundController>();
         aircraftHealth = GetComponent<Health>();
         explosion.SetActive(false);
         if (!aircraftHealth)
@@ -45,6 +46,7 @@ public class AircraftVFX : MonoBehaviour
         {
             hasExploded = true;
             explosion.SetActive(true);
+            soundController.playExplosion();
             Instantiate(explosion, transform.position, transform.rotation);
             explosion.SetActive(false);
         }

@@ -5,6 +5,7 @@ public class Shoot : SteeringMovement
     public GameObject Target;
     public float Angle;
     public MachineGun machineGun;
+    public SoundController soundController;
     public override Steering GetSteering(SteeringAgent agent)
     {
         Steering ret = base.GetSteering(agent);

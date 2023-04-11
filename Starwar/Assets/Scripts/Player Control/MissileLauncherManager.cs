@@ -6,6 +6,7 @@ public class MissileLauncherManager : MonoBehaviour
     [SerializeField] float MaxLockOnAngle, MaxLockOnDistance;
     [SerializeField] private LayerMask EnemyMask;
     [SerializeField] private GameObject Target;
+    [SerializeField] private SoundController soundController;
     public float ReloadInterval;
 
 
@@ -14,6 +15,7 @@ public class MissileLauncherManager : MonoBehaviour
 
     private void Start()
     {
+
         missileLaunchersCount = 0;
         foreach (MissileLauncher launcher in missileLaunchers)
         {
@@ -78,6 +80,7 @@ public class MissileLauncherManager : MonoBehaviour
                 missileLauncher.Target = Target;
                 missileLauncher.velocity = GetComponent<Rigidbody>().velocity;
                 missileLauncher.Launch();
+                soundController.playMissile();
                 missileLaunchersCount--;
                 return;
             }
