@@ -17,12 +17,12 @@ public class Player_Control : MonoBehaviour
 
     private Rigidbody _rigidbody;
     private SoundController soundController;
-    private Vector3 lastSpot;
+    
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
         soundController = GetComponent<SoundController>();
-        lastSpot = transform.position;
+        soundController.Engine.loop = true;
 
     }
 
@@ -31,6 +31,7 @@ public class Player_Control : MonoBehaviour
         if (Input.GetAxis("Vertical") > 0)
         {
             _rigidbody.AddRelativeForce(Vector3.forward * Input.GetAxis("Vertical") * Forward_Force, ForceMode.Force);
+            soundController.playEngine();
         }
         if (!Mathf.Approximately(Input.GetAxis("TorqueX"), 0f))
         {
@@ -53,21 +54,20 @@ public class Player_Control : MonoBehaviour
         if (Input.GetButton("Fire1"))
         {
             Debug.Log("Fire bullet");
-            soundController.playLaser();
             machineGun.Fire();
         }
 
         if (Input.GetButtonDown("Fire2"))
         {
-            Debug.Log("Fire Missile");  
-            soundController.playMissile(); 
+            Debug.Log("Fire Missile");   
             missileLauncherManager.LockOn();
             missileLauncherManager.Fire();
         }
 
+        if (Input.GetAxis("Vertical") == 0){
+            soundController.stopEngine();
+        }
         
-        soundController.playEngine(lastSpot - transform.position);
-        lastSpot = transform.position;
 
 
     }

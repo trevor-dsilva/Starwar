@@ -16,16 +16,12 @@ public class SoundController : MonoBehaviour
         nowPlaying.PlayOneShot(Explosion);        
     }
 
-    public void playEngine(Vector3 velocity){
-        
-        if(velocity.magnitude > 0 && !Engine.isPlaying ) {
-            Debug.Log("Engine Sound!");
-            Engine.PlayOneShot(Engine.clip);
-            }
+    public void playEngine(){
+        if(!Engine.isPlaying) Engine.Play();
     }
 
     public void stopEngine(){
-        Engine.Stop();
+        if(Engine.isPlaying) Engine.Stop();
     }
 
     public void playLaser(){
